@@ -197,13 +197,14 @@ int main(int argc, char* argv[])
 {
 	// write argv into array and pass to user input
 	int i;
+	int k = 0;
 	for(i=0;i<argc;i++) {
-		strcpy(commLineParams[i], argv[i]);
+		printf("this is comlineargs %s\n", argv[i]);
 	}
 //	for(i=0;i<1;i++) {
 //		printf("this is comlineargs %s", commLineParams);
 //	}
-	printf("this is comlineargs %s\n", argv[0]);
+//	printf("this is comlineargs %s\n", argv[0]);
 	printf("this is comlineargs count %d\n", argc);
 
     srand(time(0));
