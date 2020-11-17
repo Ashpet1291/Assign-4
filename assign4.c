@@ -168,7 +168,7 @@ int main(int argc, char* argv[])
   	for(int i=0; i<=49; i++) {
   	lineSize = getline(&line, &len, stdin);
   	
-  	if(strcmp(line, stopProcessing) {
+  	if(strcmp(line, stopProcessing) ==0) {
   		printf("program will exit");
 	//	exit(0);
 	}
