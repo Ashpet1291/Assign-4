@@ -200,9 +200,9 @@ int main(int argc, char *argv[])
 	for(i=0;i<1;i++) {
 		strcpy(commLineParams[i], argv[i]);
 	}
-	for(i=0;i<1;i++) {
-		printf("this is comlineargs %s", commLineParams);
-	}
+//	for(i=0;i<1;i++) {
+//		printf("this is comlineargs %s", commLineParams);
+//	}
     srand(time(0));
     pthread_t p, c;
     // Create the producer thread
