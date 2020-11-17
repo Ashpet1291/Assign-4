@@ -93,7 +93,7 @@ int prod_idx = 0;
 int con_idx = 0;
 
 // initial comman line parameters
-char *commLineParams[NUM_ITEMS];
+char* commLineParams[NUM_ITEMS];
 
 // Initialize the mutex
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -193,13 +193,12 @@ void *consumer(void *args)
 /*
 *
 */
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	// write argv into array and pass to user input
 	int i;
-	int k = 0;
 	for(i=0;i<argc;i++) {
-		strcpy(commLineParams[k], argv[i]);
+		strcpy(commLineParams[i], argv[i]);
 	}
 //	for(i=0;i<1;i++) {
 //		printf("this is comlineargs %s", commLineParams);
