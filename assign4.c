@@ -32,7 +32,13 @@
 
 
 // Buffer, shared resource
-int buffer[SIZE];
+//int buffer[SIZE];
+
+char* buffer[SIZE];
+
+// char *line = NULL;	
+buffer = (char *)malloc(sizeof(char)*size);
+
 // Number of items in the buffer, shared resource
 int count = 0;
 // Index where the producer will put the next item
@@ -52,6 +58,8 @@ int breakLoop = 0;
 char* commLineParams[NUM_ITEMS];
 char stopProcessing[] = "STOP\n";
 
+int size;
+
 // Initialize the mutex
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -62,19 +70,52 @@ pthread_cond_t full = PTHREAD_COND_INITIALIZER;
 /*
 Produces a random integer between [0, 1000] unless it is the last item to be produced in which case the value -1 is returned.
 */
-int produce_item(int i){
-  int value;
-  if (i == NUM_ITEMS)
-      value = END_MARKER;
-  else
-      value = rand() % 1000;
-  return value;
+char* produce_item(int i){
+//	int value;
+//	if (i == NUM_ITEMS)
+//    	value = END_MARKER;
+//  	else
+//    	value = rand() % 1000;
+//  	return value;
+////////////////////////////////above is code before
+	char *line = NULL;
+	// don''t have to declare malloc because  of getline function
+//	line = (char *)malloc(sizeof(char)*size);
+  	size_t len = 0;
+  	ssize_t lineSize = 0;
+  	ssize_t tempLineSize = 0;
+  	
+ // 	for(int i=0; i<=49; i++) {
+  	lineSize = getline(&line, &len, stdin);
+  	
+  	if(strcmp(line, stopProcessing) ==0) {
+  		printf("program will exit");
+  		line = END_MARKER;
+  		//return;
+  	//	break;
+	//	exit(0);
+	}
+	else if(lineSize >= NUM_ITEMS) {
+  		
+  		// first divide it up into sections divisible by 80 and save extra input in line
+  		//then
+  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
+  		printf("will be sending to another thread for processing");
+	}
+	else
+		// save data, to keep reading in info, and add new info to this line 
+  	
+  	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
+    
+  	return line;
+	
+  //	free(line);
 }
 
 /*
  Put an item in the shared buffer
 */
-int put_item(int value)
+int put_item(char* line)
 {
     buffer[prod_idx] = value;
     // Increment the index where the next item will be put. Roll over to the start of the buffer if the item was placed in the last slot in the buffer
@@ -92,13 +133,13 @@ void *producer(void *args)
     for (i = 0; i < NUM_ITEMS + 1; i++)
     {
       // Produce the item outside the critical section
-      int value = produce_item(i);
+      char* line = produce_item(i);
       // Lock the mutex before checking where there is space in the buffer
       pthread_mutex_lock(&mutex);
       //while (count == SIZE)
         // Buffer is full. Wait for the consumer to signal that the buffer has space
     //    pthread_cond_wait(&empty, &mutex);
-      put_item(value);
+      put_item(line);
       // Signal to the consumer that the buffer is no longer empty
       pthread_cond_signal(&full);
       // Unlock the mutex
@@ -114,11 +155,11 @@ void *producer(void *args)
 */
 int get_item()
 {
-    int value = buffer[con_idx];
+    char* line = buffer[con_idx];
     // Increment the index from which the item will be picked up, rolling over to the start of the buffer if currently at the end of the buffer
     con_idx = (con_idx + 1) % SIZE;
     count--;
-    return value;
+    return line;
 }
 
 /*
@@ -126,16 +167,16 @@ int get_item()
 */
 void *consumer(void *args)
 {
-    int value = 0;
+    char* line = NULL;
     // Continue consuming until the END_MARKER is seen    
-    while (value != END_MARKER)
+    while (line != END_MARKER)
     {
       // Lock the mutex before checking if the buffer has data      
       pthread_mutex_lock(&mutex);
       while (count == 0)
         // Buffer is empty. Wait for the producer to signal that the buffer has data
         pthread_cond_wait(&full, &mutex);
-      value = get_item();
+      line = get_item();
       // Signal to the producer that the buffer has space
      // pthread_cond_signal(&empty);
       // Unlock the mutex
@@ -155,41 +196,40 @@ void *consumer(void *args)
 */
 int main(int argc, char* argv[])
 {
-	// write argv into array and pass to user input
 
-
-	char *line = NULL;
-	// don''t have to declare malloc because  of getline function
-//	line = (char *)malloc(sizeof(char)*size);
-  	size_t len = 0;
-  	ssize_t lineSize = 0;
-  	ssize_t tempLineSize = 0;
-  	
-  	for(int i=0; i<=49; i++) {
-  	lineSize = getline(&line, &len, stdin);
-  	
-  	if(strcmp(line, stopProcessing) ==0) {
-  		printf("program will exit");
-	//	exit(0);
-	}
-  	
-  	printf("You entered %s, which has %zu chars.\n", line, lineSize - 1);
-    
-  	if(lineSize >= NUM_ITEMS) {
-  		
-  		// first divide it up into sections divisible by 80 and save extra input in line
-  		//then
-  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
-  		printf("will be sending to another thread for processing");
-	}
-	else {
-		// save data, to keep reading in info, and add new info to this line 
-	}  
-
-	}
-	
-	
-  	free(line);
+//	char *line = NULL;
+//	// don''t have to declare malloc because  of getline function
+////	line = (char *)malloc(sizeof(char)*size);
+//  	size_t len = 0;
+//  	ssize_t lineSize = 0;
+//  	ssize_t tempLineSize = 0;
+//  	
+//  	for(int i=0; i<=49; i++) {
+//  	lineSize = getline(&line, &len, stdin);
+//  	
+//  	if(strcmp(line, stopProcessing) ==0) {
+//  		printf("program will exit");
+//  		//return;
+//	//	exit(0);
+//	}
+//  	
+//  	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
+//    
+//  	if(lineSize >= NUM_ITEMS) {
+//  		
+//  		// first divide it up into sections divisible by 80 and save extra input in line
+//  		//then
+//  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
+//  		printf("will be sending to another thread for processing");
+//	}
+//	else {
+//		// save data, to keep reading in info, and add new info to this line 
+//	}  
+//
+//	}
+//	
+//	
+//  	free(line);
   	
 //	for(i=0;i<1;i++) {
 //		printf("this is comlineargs %s", commLineParams);
