@@ -37,7 +37,7 @@
 char* buffer[SIZE];
 
 // char *line = NULL;	
-buffer = (char *)malloc(sizeof(char)*size);
+//buffer = (char *)malloc(sizeof(char)*size);
 
 // Number of items in the buffer, shared resource
 int count = 0;
@@ -105,7 +105,7 @@ char* produce_item(int i){
 	else
 		// save data, to keep reading in info, and add new info to this line 
   	
-  	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
+  //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
     
   	return line;
 	
@@ -115,13 +115,13 @@ char* produce_item(int i){
 /*
  Put an item in the shared buffer
 */
-int put_item(char* line)
+char* put_item(char* line)
 {
-    buffer[prod_idx] = value;
+    buffer[prod_idx] = line;
     // Increment the index where the next item will be put. Roll over to the start of the buffer if the item was placed in the last slot in the buffer
     prod_idx = (prod_idx + 1) % SIZE;
     count++;
-    return value;
+    return line;
 }
 
 /*
