@@ -190,17 +190,23 @@ void *consumer(void *args)
 }
 
 
+
+
+
 /*
 *
 */
 int main(int argc, char* argv[])
 {
 	// write argv into array and pass to user input
-	int i;
-	int k = 0;
-	for(i=0;i<argc;i++) {
-		printf("this is comlineargs %s\n", argv[i]);
-	}
+
+
+	char *line = NULL;
+  	size_t len = 0;
+  	ssize_t lineSize = 0;
+  	lineSize = getline(&line, &len, stdin);
+  	printf("You entered %s, which has %zu chars.\n", line, lineSize - 1);
+  	free(line);
 //	for(i=0;i<1;i++) {
 //		printf("this is comlineargs %s", commLineParams);
 //	}
