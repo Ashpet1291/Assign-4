@@ -196,13 +196,15 @@ void *consumer(void *args)
 int main(int argc, char *argv[])
 {
 	// write argv into array and pass to user input
-	int i;
-	for(i=0;i<1;i++) {
-		strcpy(commLineParams[i], argv[i]);
-	}
+//	int i;
+//	for(i=0;i<1;i++) {
+//		strcpy(commLineParams[i], argv[i]);
+//	}
 //	for(i=0;i<1;i++) {
 //		printf("this is comlineargs %s", commLineParams);
 //	}
+	printf("this is comlineargs %s", argv[0]);
+	
     srand(time(0));
     pthread_t p, c;
     // Create the producer thread
