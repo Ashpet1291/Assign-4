@@ -176,9 +176,15 @@ int main(int argc, char* argv[])
   	printf("You entered %s, which has %zu chars.\n", line, lineSize - 1);
     
   	if(lineSize >= NUM_ITEMS) {
-  		// send to next thread
+  		
+  		// first divide it up into sections divisible by 80 and save extra input in line
+  		//then
+  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
   		printf("will be sending to another thread for processing");
-	  }
+	}
+	else {
+		// save data, to keep reading in info, and add new info to this line 
+	}  
 
 	}
 	
