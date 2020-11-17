@@ -21,67 +21,15 @@
 
 
 
-//int input(char *s,int length);
-//
-//int main()
-//{
-//    char *buffer;
-//    size_t bufsize = 32;
-//    size_t characters;
-//
-//    buffer = (char *)malloc(bufsize * sizeof(char));
-//    if( buffer == NULL)
-//    {
-//        perror("Unable to allocate buffer");
-//        exit(1);
-//    }
-//
-//    printf("Type something: ");
-//    characters = getline(&buffer,&bufsize,stdin);
-//    printf("%zu characters were read.\n",characters);
-//    printf("You typed: '%s'\n",buffer);
-//
-//    return(0);
-//}
-
-
-
-//char *string;
-//char *buffer;
-//size_t bufsize = 81;
-//size_t character;
-
-
-
-
-///*
-//* gets user Input
-//*/
-//void getInput() {
-//	
-//	buffer = (char *)malloc(bufsize * sizeof(char));
-//	
-//	if() {
-//		
-//	}
-//	else {
-//		characters = getline(&buffer,&bufsize,stdin);
-//        printf("%zu characters were read.\n",characters);
-//        printf("You typed: '%s'\n",buffer);	
-//	}
-//	
-//	printf("input was %s\n", buffer);
-//}
-
-
 // Size of the buffer
-#define SIZE 85
+#define SIZE 1000
 
 // Number of items that will be produced before the END_MARKER. Note that this number is smaller than the size of the buffer. This means that we can model the buffer as unbounded
-#define NUM_ITEMS 82
+#define NUM_ITEMS 80
 
 // Special marker used to indicate end of the producer data
 #define END_MARKER -1
+
 
 // Buffer, shared resource
 int buffer[SIZE];
@@ -92,8 +40,17 @@ int prod_idx = 0;
 // Index where the consumer will pick up the next item
 int con_idx = 0;
 
+// breakLoop for reading lines
+int breakLoop = 0;
+
+
+//char *str;
+//int size = 4; /*one extra for ‘\0’*/
+//str = (char *)malloc(sizeof(char)*size)
+
 // initial comman line parameters
 char* commLineParams[NUM_ITEMS];
+char stopProcessing[] = "STOP";
 
 // Initialize the mutex
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -147,7 +104,7 @@ void *producer(void *args)
       // Unlock the mutex
       pthread_mutex_unlock(&mutex);
       // Print message outside the critical section
-      printf("PROD %d\n", value);
+   //   printf("PROD %d\n", value);
     }
     return NULL;
 }
@@ -184,7 +141,7 @@ void *consumer(void *args)
       // Unlock the mutex
       pthread_mutex_unlock(&mutex);
       // Print the message outside the critical section
-      printf("CONS %d\n", value);
+    //  printf("CONS %d\n", value);
     }
     return NULL;
 }
@@ -202,18 +159,36 @@ int main(int argc, char* argv[])
 
 
 	char *line = NULL;
+	// don''t have to declare malloc because  of getline function
+//	line = (char *)malloc(sizeof(char)*size);
   	size_t len = 0;
   	ssize_t lineSize = 0;
+  	ssize_t tempLineSize = 0;
+  	
+  	for(int i=0; i<=49; i++) {
   	lineSize = getline(&line, &len, stdin);
   	printf("You entered %s, which has %zu chars.\n", line, lineSize - 1);
+    
+  	if(linesize >= NUM_ITEMS) {
+  		// send to next thread
+  		printf("will be sending to another thread for processing");
+	  }
+	else if(strcmp(line, stopProcessing) {
+		exit(0);
+	}
+
+	}
+	
+	
   	free(line);
+  	
 //	for(i=0;i<1;i++) {
 //		printf("this is comlineargs %s", commLineParams);
 //	}
 //	printf("this is comlineargs %s\n", argv[0]);
-	printf("this is comlineargs count %d\n", argc);
+//	printf("this is comlineargs count %d\n", argc);
 
-    srand(time(0));
+ //   srand(time(0));
     pthread_t p, c;
     // Create the producer thread
     pthread_create(&p, NULL, producer, NULL);
