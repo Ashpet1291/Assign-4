@@ -50,7 +50,7 @@ int breakLoop = 0;
 
 // initial comman line parameters
 char* commLineParams[NUM_ITEMS];
-char stopProcessing[] = "STOP";
+char stopProcessing[] = "STOP\n";
 
 // Initialize the mutex
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -167,15 +167,18 @@ int main(int argc, char* argv[])
   	
   	for(int i=0; i<=49; i++) {
   	lineSize = getline(&line, &len, stdin);
+  	
+  	if(strcmp(line, stopProcessing) {
+  		printf("program will exit");
+	//	exit(0);
+	}
+  	
   	printf("You entered %s, which has %zu chars.\n", line, lineSize - 1);
     
-  	if(linesize >= NUM_ITEMS) {
+  	if(lineSize >= NUM_ITEMS) {
   		// send to next thread
   		printf("will be sending to another thread for processing");
 	  }
-	else if(strcmp(line, stopProcessing) {
-		exit(0);
-	}
 
 	}
 	
