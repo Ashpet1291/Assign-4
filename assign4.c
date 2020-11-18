@@ -144,7 +144,7 @@ char* produce_item(){
   //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
     
   //	return line;
-	
+	return tempLine;
   //	free(line);
 }
 
