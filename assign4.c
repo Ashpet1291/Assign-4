@@ -125,7 +125,12 @@ char* put_item(char* line)
 void *producer(void *args)
 {
 	int modRemainder = 0;
+	int remainingChars = 0;
 	int i;
+	
+	char tempLine[SIZE];
+	
+	
     for (i = 0; i < NUM_ITEMS + 1; i++)
     {
       // Produce the item outside the critical section
@@ -141,7 +146,7 @@ void *producer(void *args)
 	// if not, store the line and append the next line to the stored line 
 	// then send the line
 	  printf("this is the size %d\n", size);
-	    if((size % NUM_ITEMS) == 0) {
+	  if((size % NUM_ITEMS) == 0) {
       		put_item(line);
      		// Signal to the consumer that the buffer is no longer empty
      		pthread_cond_signal(&full);
@@ -150,9 +155,15 @@ void *producer(void *args)
       // Print message outside the critical section
 	  //printf("PROD %d\n", value);
 		}
-	    else 
-	  		modRemainder = size%NUM_ITEMS;
-	  		printf("line: %s\n", line[80]);
+	   else if(size > NUM_ITEMS)
+	  	 modRemainder = size%NUM_ITEMS;
+	  	 strcpy(tempLine, line);
+	  	 // copy line intp array and only send 80 chars ubt attach a newline to ending
+	  	 // save the leftover into array to append next line onto
+	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
+	  	 printf("line: %s\n", line[80]);
+	   else
+	   	 remaingChars = NUM_ITEMS - size;
     }
     return NULL;
 }
