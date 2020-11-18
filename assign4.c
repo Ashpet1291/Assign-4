@@ -161,7 +161,7 @@ void *producer(void *args)
 	  	 // copy line intp array and only send 80 chars ubt attach a newline to ending
 	  	 // save the leftover into array to append next line onto
 	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
-	  	 printf("line: %s\n", line[80]);
+	  	// printf("line: %s\n", line[80]);
 	    }
 	   	else
 	   	 	remainingChars = NUM_ITEMS - size;
