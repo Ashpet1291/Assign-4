@@ -141,7 +141,8 @@ void *producer(void *args)
         // Buffer is full. Wait for the consumer to signal that the buffer has space
     //    pthread_cond_wait(&empty, &mutex);   
 	
-	 
+	  while (line != END_MARKER)
+    {
       // check here if there 80 items, 
 	// if not, store the line and append the next line to the stored line 
 	// then send the line
@@ -166,6 +167,7 @@ void *producer(void *args)
 	   	else
 	   	 	remainingChars = NUM_ITEMS - size;
     }
+	}
     return NULL;
 }
 
