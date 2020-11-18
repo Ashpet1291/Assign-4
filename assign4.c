@@ -107,7 +107,7 @@ void *get_input(void *args)
     for (int i = 0; i < NUM_ITEMS; i++)
     {
       // Get the user input
-      int item = get_user_input();
+      char* item = get_user_input();
       put_buff_1(item);
     }
     return NULL;
