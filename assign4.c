@@ -86,6 +86,7 @@ char* produce_item(){
   	ssize_t tempLineSize = 0;
   	
   	int lineFull = 0;
+  	int modRemainder =0;
   	
  // 	for(int i=0; i<=49; i++) {
  // make while loop, while notFull == 1
@@ -111,7 +112,7 @@ char* produce_item(){
 	  }
 	  else if(size > NUM_ITEMS) {
 	  	 modRemainder = size%NUM_ITEMS;
-	  	 strcpy(tempLine, line, NUM_ITEMS);
+	  	 strncpy(tempLine, line, NUM_ITEMS);
 	  	 
 	  	 return tempLine;
 	  	 
@@ -132,10 +133,11 @@ char* produce_item(){
 	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
 	  	// printf("line: %s\n", line[80]);
 //	  }
+	}
 	  else
 	   	remainingChars = NUM_ITEMS - size;
  //   }
-		}
+	
   //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
     
   //	return line;
