@@ -71,6 +71,8 @@ pthread_cond_t full = PTHREAD_COND_INITIALIZER;
 Produces a random integer between [0, 1000] unless it is the last item to be produced in which case the value -1 is returned.
 */
 char* produce_item(){
+	int modRemainder = 0;
+	int remainingChars = 0;
 //	int value;
 //	if (i == NUM_ITEMS)
 //    	value = END_MARKER;
@@ -79,6 +81,7 @@ char* produce_item(){
 //  	return value;
 ////////////////////////////////above is code before
 	char *line = NULL;
+	char tempLine[SIZE];
 	// don''t have to declare malloc because  of getline function
 //	line = (char *)malloc(sizeof(char)*size);
   	size_t len = 0;
@@ -87,6 +90,7 @@ char* produce_item(){
   	
   	int lineFull = 0;
   	int modRemainder =0;
+  	int tempLine;
   	
  // 	for(int i=0; i<=49; i++) {
  // make while loop, while notFull == 1
@@ -116,7 +120,8 @@ char* produce_item(){
 	  	 
 	  	 return tempLine;
 	  	 
-		   	  	 
+//	int modRemainder = 0;
+//	int remainingChars = 0;		   	  	 
 //	  	 char src[40];
 //   char dest[12];
 //  
@@ -162,11 +167,11 @@ char* put_item(char* line)
 */
 void *producer(void *args)
 {
-	int modRemainder = 0;
-	int remainingChars = 0;
+//	int modRemainder = 0;
+//	int remainingChars = 0;
 	int i;
 	
-	char tempLine[SIZE];
+//	char tempLine[SIZE];
 	
 	
     for (i = 0; i < NUM_ITEMS + 1; i++)
