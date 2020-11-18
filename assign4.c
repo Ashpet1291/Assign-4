@@ -149,10 +149,9 @@ void *producer(void *args)
       	pthread_mutex_unlock(&mutex);
       // Print message outside the critical section
 	  //printf("PROD %d\n", value);
-	  else {
+	  else 
 	  	modRemainder = size%NUM_ITEMS;
 	  	printf("line: %s\n", line[80]);
-	  }
     }
     return NULL;
 }
