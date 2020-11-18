@@ -109,13 +109,13 @@ char* produce_item(){
 	
 	printf("this is the size %d\n", size);
 	// if 80 or multiple of 80 print line with newline attached
-	  if((size % NUM_ITEMS) == 0) {
-//		 return line;
-	  }
-	  else if(size > NUM_ITEMS) {
-	  	 modRemainder = size%NUM_ITEMS;
-	  	 strncpy(tempLine, line, NUM_ITEMS);
-	  	 
+//	  if((size % NUM_ITEMS) == 0) {
+////		 return line;
+//	  }
+//	  else if(size > NUM_ITEMS) {
+//	  	 modRemainder = size%NUM_ITEMS;
+//	  	 strncpy(tempLine, line, NUM_ITEMS);
+//	  	 
 //	  	 return tempLine;
 	  	 
 //	int modRemainder = 0;
@@ -136,15 +136,15 @@ char* produce_item(){
 	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
 	  	// printf("line: %s\n", line[80]);
 //	  }
-	}
-	  else
-	   	remainingChars = NUM_ITEMS - size;
+//	}
+//	  else
+//	   	remainingChars = NUM_ITEMS - size;
  //   }
 	
   //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
     
   //	return line;
-	return tempLine;
+	return line;
   //	free(line);
 }
 
@@ -247,10 +247,8 @@ void *consumer(void *args)
 //    
 //      token = strtok(NULL, s);
 //   }
-	for(int i = 0; i<80;i++) {
-		
-      printf("COns input %s\n", tempLine[i]);
-  }
+
+      printf("COns input %s\n", line);
     }
     return NULL;
 }
