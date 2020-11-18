@@ -57,7 +57,7 @@ int inputCount= 0;
 // initial comman line parameters
 char* commLineParams[NUM_ITEMS];
 char stopProcessing[] = "STOP\n";
-
+char tempLine[SIZE];
 int size;
 
 // Initialize the mutex
@@ -81,7 +81,7 @@ char* produce_item(){
 //  	return value;
 ////////////////////////////////above is code before
 	char *line = NULL;
-	char tempLine[SIZE];
+//	char tempLine[SIZE];
 	// don''t have to declare malloc because  of getline function
 //	line = (char *)malloc(sizeof(char)*size);
   	size_t len = 0;
@@ -110,13 +110,13 @@ char* produce_item(){
 	printf("this is the size %d\n", size);
 	// if 80 or multiple of 80 print line with newline attached
 	  if((size % NUM_ITEMS) == 0) {
-		 return line;
+//		 return line;
 	  }
 	  else if(size > NUM_ITEMS) {
 	  	 modRemainder = size%NUM_ITEMS;
 	  	 strncpy(tempLine, line, NUM_ITEMS);
 	  	 
-	  	 return tempLine;
+//	  	 return tempLine;
 	  	 
 //	int modRemainder = 0;
 //	int remainingChars = 0;		   	  	 
