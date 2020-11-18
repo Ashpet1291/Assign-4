@@ -184,18 +184,7 @@ void *consumer(void *args)
       	// Unlock the mutex
         pthread_mutex_unlock(&mutex);
         // Print the message outside the critical section
-      	if(lineSize >= NUM_ITEMS) {  
-		  printf("linesize  is: %s\n", lineSize);
-		 // if(lineSize)		
-  		// first divide it up into sections divisible by 80 and save extra input in line
-  		//then
-  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
-  	//	printf("will be sending to another thread for processing");
-		}
-		else {
-		// save data, to keep reading in info, and add new info to this line 
-		}  
-	
+
 	
 	// this is how you break up a string
 //   char str[80] = "This is - www.tutorialspoint.com - website";
