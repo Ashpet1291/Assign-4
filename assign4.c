@@ -163,7 +163,7 @@ void *compute_square_root(void *args)
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	line = get_buff_1();
-        square_root = line //sqrt(item);
+        square_root = line; //sqrt(item);
         put_buff_2(square_root);
     }
     return NULL;
