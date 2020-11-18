@@ -116,7 +116,7 @@ void *get_input(void *args)
 /*
 Get the next item from buffer 1
 */
-int get_buff_1(){
+char* get_buff_1(){
   // Lock the mutex before checking if the buffer has data
   pthread_mutex_lock(&mutex_1);
   while (count_1 == 0)
