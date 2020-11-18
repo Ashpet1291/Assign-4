@@ -124,6 +124,7 @@ char* put_item(char* line)
 */
 void *producer(void *args)
 {
+	int modRemainder = 0;
 	int i;
     for (i = 0; i < NUM_ITEMS + 1; i++)
     {
@@ -139,15 +140,19 @@ void *producer(void *args)
       // check here if there 80 items, 
 	// if not, store the line and append the next line to the stored line 
 	// then send the line
-	  printf("this is the size %d", size);
-	
-      put_item(line);
+	  printf("this is the size %d\n", size);
+	  if((size % NUM_ITEMS) == 0)
+      	put_item(line);
       // Signal to the consumer that the buffer is no longer empty
-      pthread_cond_signal(&full);
+     	pthread_cond_signal(&full);
       // Unlock the mutex
-      pthread_mutex_unlock(&mutex);
+      	pthread_mutex_unlock(&mutex);
       // Print message outside the critical section
 	  //printf("PROD %d\n", value);
+	  else {
+	  	modRemainder = size%NUM_ITEMS;
+	  	printf("line: %s\n", line[80]);
+	  }
     }
     return NULL;
 }
