@@ -85,7 +85,11 @@ char* produce_item(){
   	ssize_t lineSize = 0;
   	ssize_t tempLineSize = 0;
   	
+  	int lineFull = 0;
+  	
  // 	for(int i=0; i<=49; i++) {
+ // make while loop, while notFull == 1
+ //then whe get 80 chars, its full
   	lineSize = getline(&line, &len, stdin);
   	inputCount++;
   	if(strcmp(line, stopProcessing) == 0) {
@@ -100,9 +104,41 @@ char* produce_item(){
 	
 	size = lineSize;
 	
+	printf("this is the size %d\n", size);
+	// if 80 or multiple of 80 print line with newline attached
+	  if((size % NUM_ITEMS) == 0) {
+		 return line;
+	  }
+	  else if(size > NUM_ITEMS) {
+	  	 modRemainder = size%NUM_ITEMS;
+	  	 strcpy(tempLine, line, NUM_ITEMS);
+	  	 
+	  	 return tempLine;
+	  	 
+		   	  	 
+//	  	 char src[40];
+//   char dest[12];
+//  
+//   memset(dest, '\0', sizeof(dest));
+//   strcpy(src, "This is tutorialspoint.com");
+//   strncpy(dest, src, 10);
+//
+//   printf("Final copied string : %s\n", dest);
+   
+	  	 
+	  	 
+	  	 // copy line intp array and only send 80 chars ubt attach a newline to ending
+	  	 // save the leftover into array to append next line onto
+	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
+	  	// printf("line: %s\n", line[80]);
+//	  }
+	  else
+	   	remainingChars = NUM_ITEMS - size;
+ //   }
+		}
   //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
     
-  	return line;
+  //	return line;
 	
   //	free(line);
 }
@@ -141,32 +177,19 @@ void *producer(void *args)
         // Buffer is full. Wait for the consumer to signal that the buffer has space
     //    pthread_cond_wait(&empty, &mutex);   
 	
-	  while((line != END_MARKER) || (inputCount < 50))
-    {
+//	  while((line != END_MARKER) || (inputCount < 50))
+//    {
       // check here if there 80 items, 
 	// if not, store the line and append the next line to the stored line 
 	// then send the line
-	  printf("this is the size %d\n", size);
-	  if((size % NUM_ITEMS) == 0) {
-      		put_item(line);
-     		// Signal to the consumer that the buffer is no longer empty
-     		pthread_cond_signal(&full);
-      		// Unlock the mutex
-      		pthread_mutex_unlock(&mutex);
+      put_item(line);
+      // Signal to the consumer that the buffer is no longer empty
+      pthread_cond_signal(&full);
+      // Unlock the mutex
+      pthread_mutex_unlock(&mutex);
       // Print message outside the critical section
 	  //printf("PROD %d\n", value);
-		}
-	   	else if(size > NUM_ITEMS) {
-	  	 modRemainder = size%NUM_ITEMS;
-	  	 strcpy(tempLine, line);
-	  	 // copy line intp array and only send 80 chars ubt attach a newline to ending
-	  	 // save the leftover into array to append next line onto
-	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
-	  	// printf("line: %s\n", line[80]);
-	    }
-	   	else
-	   	 	remainingChars = NUM_ITEMS - size;
-    }
+
 	}
     return NULL;
 }
