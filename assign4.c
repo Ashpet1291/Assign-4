@@ -55,6 +55,9 @@ pthread_mutex_t mutex_2 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_2 = PTHREAD_COND_INITIALIZER;
 
 
+
+
+char stopProcessing[] = "STOP\n";
 /*
 Get input from the user.
 This function doesn't perform any error checking.
@@ -69,11 +72,10 @@ char* get_user_input(){
 	printf("Enter a senetence: ");
 	
 	lineSize = getline(&line, &len, stdin);
-	inputCount++;
-	
-	if(strcmp(line, stopProcessing) == 0) {
-		line = END_MARKER;
-	}
+//	
+//	if(strcmp(line, stopProcessing) == 0) {
+//		line = END_MARKER;
+//	}
 	
 	return line;
 }
@@ -120,14 +122,14 @@ int get_buff_1(){
   while (count_1 == 0)
     // Buffer is empty. Wait for the producer to signal that the buffer has data
     pthread_cond_wait(&full_1, &mutex_1);
-  int item = buffer_1[con_idx_1];
+  char* line = buffer_1[con_idx_1];
   // Increment the index from which the item will be picked up
   con_idx_1 = con_idx_1 + 1;
   count_1--;
   // Unlock the mutex
   pthread_mutex_unlock(&mutex_1);
   // Return the item
-  return item;
+  return line;
 }
 
 /*
@@ -160,9 +162,9 @@ void *compute_square_root(void *args)
     char* square_root;
     for (int i = 0; i < NUM_ITEMS; i++)
     {
-      line = get_buff_1();
-      square_root = line //sqrt(item);
-      put_buff_2(square_root);
+    	line = get_buff_1();
+        square_root = line //sqrt(item);
+        put_buff_2(square_root);
     }
     return NULL;
 }
@@ -170,20 +172,20 @@ void *compute_square_root(void *args)
 /*
 Get the next item from buffer 2
 */
-double get_buff_2(){
+char* get_buff_2(){
   // Lock the mutex before checking if the buffer has data
   pthread_mutex_lock(&mutex_2);
   while (count_2 == 0)
     // Buffer is empty. Wait for the producer to signal that the buffer has data
     pthread_cond_wait(&full_2, &mutex_2);
-  double item = buffer_2[con_idx_2];
+  char* line = buffer_2[con_idx_2];
   // Increment the index from which the item will be picked up
   con_idx_2 = con_idx_2 + 1;
   count_2--;
   // Unlock the mutex
   pthread_mutex_unlock(&mutex_2);
   // Return the item
-  return item;
+  return line;
 }
 
 
