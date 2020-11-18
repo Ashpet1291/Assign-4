@@ -145,7 +145,7 @@ void *producer(void *args)
       // Unlock the mutex
       pthread_mutex_unlock(&mutex);
       // Print message outside the critical section
-   //   printf("PROD %d\n", value);
+	  //printf("PROD %d\n", value);
     }
     return NULL;
 }
@@ -153,7 +153,7 @@ void *producer(void *args)
 /*
  Get the next item from the buffer
 */
-int get_item()
+char* get_item()
 {
     char* line = buffer[con_idx];
     // Increment the index from which the item will be picked up, rolling over to the start of the buffer if currently at the end of the buffer
@@ -182,7 +182,7 @@ void *consumer(void *args)
       // Unlock the mutex
       pthread_mutex_unlock(&mutex);
       // Print the message outside the critical section
-    //  printf("CONS %d\n", value);
+      printf("CONS %s\n", line);
     }
     return NULL;
 }
