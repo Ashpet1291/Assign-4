@@ -247,7 +247,10 @@ void *consumer(void *args)
 //    
 //      token = strtok(NULL, s);
 //   }
-      printf("COns input %s\n", tempLine);
+	for(int i = 0; i<80;i++) {
+		
+      printf("COns input %s\n", tempLine[i]);
+  }
     }
     return NULL;
 }
