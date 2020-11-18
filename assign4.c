@@ -162,7 +162,7 @@ void *producer(void *args)
 	  	 // save the leftover into array to append next line onto
 	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
 	  	 printf("line: %s\n", line[80]);
-	   	else
+	   		else
 	   	 remainingChars = NUM_ITEMS - size;
     }
     return NULL;
