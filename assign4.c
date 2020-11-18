@@ -89,9 +89,7 @@ char* produce_item(){
   	ssize_t tempLineSize = 0;
   	
   	int lineFull = 0;
-  	int modRemainder =0;
-  	int tempLine;
-  	
+    	
  // 	for(int i=0; i<=49; i++) {
  // make while loop, while notFull == 1
  //then whe get 80 chars, its full
