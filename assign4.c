@@ -48,7 +48,7 @@ int con_idx = 0;
 
 // breakLoop for reading lines
 int breakLoop = 0;
-
+int inputCount= 0;
 
 //char *str;
 //int size = 4; /*one extra for ‘\0’*/
@@ -87,7 +87,7 @@ char* produce_item(){
   	
  // 	for(int i=0; i<=49; i++) {
   	lineSize = getline(&line, &len, stdin);
-  	
+  	inputCount++;
   	if(strcmp(line, stopProcessing) == 0) {
   		line = END_MARKER;
   		//return;
@@ -141,7 +141,7 @@ void *producer(void *args)
         // Buffer is full. Wait for the consumer to signal that the buffer has space
     //    pthread_cond_wait(&empty, &mutex);   
 	
-	  while (line != END_MARKER)
+	  while((line != END_MARKER) || (inputCount < 50))
     {
       // check here if there 80 items, 
 	// if not, store the line and append the next line to the stored line 
