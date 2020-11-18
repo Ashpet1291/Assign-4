@@ -155,15 +155,15 @@ void *producer(void *args)
       // Print message outside the critical section
 	  //printf("PROD %d\n", value);
 		}
-	   else if(size > NUM_ITEMS)
+	   	else if(size > NUM_ITEMS)
 	  	 modRemainder = size%NUM_ITEMS;
 	  	 strcpy(tempLine, line);
 	  	 // copy line intp array and only send 80 chars ubt attach a newline to ending
 	  	 // save the leftover into array to append next line onto
 	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
 	  	 printf("line: %s\n", line[80]);
-	   else
-	   	 remaingChars = NUM_ITEMS - size;
+	   	else
+	   	 remainingChars = NUM_ITEMS - size;
     }
     return NULL;
 }
