@@ -21,273 +21,200 @@
 
 
 
-// Size of the buffer
-#define SIZE 1000
+// Size of the buffers
+#define SIZE 100
 
-// Number of items that will be produced before the END_MARKER. Note that this number is smaller than the size of the buffer. This means that we can model the buffer as unbounded
-#define NUM_ITEMS 80
+// Number of items that will be produced. This number is less than the size of the buffer. Hence, we can model the buffer as being unbounded.
+#define NUM_ITEMS 6 //80
 
-// Special marker used to indicate end of the producer data
-#define END_MARKER -1
+// Buffer 1, shared resource between input thread and square-root thread
+char* buffer_1[SIZE];
+// Number of items in the buffer
+int count_1 = 0;
+// Index where the input thread will put the next item
+int prod_idx_1 = 0;
+// Index where the square-root thread will pick up the next item
+int con_idx_1 = 0;
+// Initialize the mutex for buffer 1
+pthread_mutex_t mutex_1 = PTHREAD_MUTEX_INITIALIZER;
+// Initialize the condition variable for buffer 1
+pthread_cond_t full_1 = PTHREAD_COND_INITIALIZER;
 
 
-// Buffer, shared resource
-//int buffer[SIZE];
+// Buffer 2, shared resource between square root thread and output thread
+char* buffer_2[SIZE];
+// Number of items in the buffer
+int count_2 = 0;
+// Index where the square-root thread will put the next item
+int prod_idx_2 = 0;
+// Index where the output thread will pick up the next item
+int con_idx_2 = 0;
+// Initialize the mutex for buffer 2
+pthread_mutex_t mutex_2 = PTHREAD_MUTEX_INITIALIZER;
+// Initialize the condition variable for buffer 2
+pthread_cond_t full_2 = PTHREAD_COND_INITIALIZER;
 
-char* buffer[SIZE];
-
-// char *line = NULL;	
-//buffer = (char *)malloc(sizeof(char)*size);
-
-// Number of items in the buffer, shared resource
-int count = 0;
-// Index where the producer will put the next item
-int prod_idx = 0;
-// Index where the consumer will pick up the next item
-int con_idx = 0;
-
-// breakLoop for reading lines
-int breakLoop = 0;
-int inputCount= 0;
-
-//char *str;
-//int size = 4; /*one extra for ‘\0’*/
-//str = (char *)malloc(sizeof(char)*size)
-
-// initial comman line parameters
-char* commLineParams[NUM_ITEMS];
-char stopProcessing[] = "STOP\n";
-char tempLine[SIZE];
-int size;
-
-// Initialize the mutex
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-// Initialize the condition variables
-pthread_cond_t full = PTHREAD_COND_INITIALIZER;
-//pthread_cond_t empty = PTHREAD_COND_INITIALIZER;
 
 /*
-Produces a random integer between [0, 1000] unless it is the last item to be produced in which case the value -1 is returned.
+Get input from the user.
+This function doesn't perform any error checking.
 */
-char* produce_item(){
-	int modRemainder = 0;
-	int remainingChars = 0;
-//	int value;
-//	if (i == NUM_ITEMS)
-//    	value = END_MARKER;
-//  	else
-//    	value = rand() % 1000;
-//  	return value;
-////////////////////////////////above is code before
-	char *line = NULL;
-//	char tempLine[SIZE];
-	// don''t have to declare malloc because  of getline function
-//	line = (char *)malloc(sizeof(char)*size);
-  	size_t len = 0;
-  	ssize_t lineSize = 0;
-  	ssize_t tempLineSize = 0;
-  	
-  	int lineFull = 0;
-    	
- // 	for(int i=0; i<=49; i++) {
- // make while loop, while notFull == 1
- //then whe get 80 chars, its full
-  	lineSize = getline(&line, &len, stdin);
-  	inputCount++;
-  	if(strcmp(line, stopProcessing) == 0) {
-  		line = END_MARKER;
-  		//return;
-  	//	break;
-	//	exit(0);
+char* get_user_input(){
+	size_t len = 0;
+	ssize_t lineSize = 0;
+	ssize_t templineSize = 0;	
+	
+		
+	char* line = NULL;
+	printf("Enter a senetence: ");
+	
+	lineSize = getline(&line, &len, stdin);
+	inputCount++;
+	
+	if(strcmp(line, stopProcessing) == 0) {
+		line = END_MARKER;
 	}
- 	 // check here if there 80 items, 
-	// if not, store the line and append the next line to the stored line 
-	// then send the line
 	
-	size = lineSize;
-	
-	printf("this is the size %d\n", size);
-	// if 80 or multiple of 80 print line with newline attached
-//	  if((size % NUM_ITEMS) == 0) {
-////		 return line;
-//	  }
-//	  else if(size > NUM_ITEMS) {
-//	  	 modRemainder = size%NUM_ITEMS;
-//	  	 strncpy(tempLine, line, NUM_ITEMS);
-//	  	 
-//	  	 return tempLine;
-	  	 
-//	int modRemainder = 0;
-//	int remainingChars = 0;		   	  	 
-//	  	 char src[40];
-//   char dest[12];
-//  
-//   memset(dest, '\0', sizeof(dest));
-//   strcpy(src, "This is tutorialspoint.com");
-//   strncpy(dest, src, 10);
-//
-//   printf("Final copied string : %s\n", dest);
-   
-	  	 
-	  	 
-	  	 // copy line intp array and only send 80 chars ubt attach a newline to ending
-	  	 // save the leftover into array to append next line onto
-	  	 // maybe make a int checkRemainder if 0, no remainder ---if 1 then there is and appending needs to be done
-	  	// printf("line: %s\n", line[80]);
-//	  }
-//	}
-//	  else
-//	   	remainingChars = NUM_ITEMS - size;
- //   }
-	
-  //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
-    
-  //	return line;
 	return line;
-  //	free(line);
 }
 
 /*
- Put an item in the shared buffer
+ Put an item in buff_1
 */
-char* put_item(char* line)
-{
-    buffer[prod_idx] = line;
-    // Increment the index where the next item will be put. Roll over to the start of the buffer if the item was placed in the last slot in the buffer
-    prod_idx = (prod_idx + 1) % SIZE;
-    count++;
-    return line;
+void put_buff_1(char* line){
+  // Lock the mutex before putting the item in the buffer
+  pthread_mutex_lock(&mutex_1);
+  // Put the item in the buffer
+  buffer_1[prod_idx_1] = line;
+  // Increment the index where the next item will be put.
+  prod_idx_1 = prod_idx_1 + 1;
+  count_1++;
+  // Signal to the consumer that the buffer is no longer empty
+  pthread_cond_signal(&full_1);
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_1);
 }
 
 /*
- Function that the producer thread will run. Produce an item and put in the buffer only if there is space in the buffer. If the buffer is full, then wait until there is space in the buffer.
+ Function that the input thread will run.
+ Get input from the user.
+ Put the item in the buffer shared with the square_root thread.
 */
-void *producer(void *args)
+void *get_input(void *args)
 {
-//	int modRemainder = 0;
-//	int remainingChars = 0;
-	int i;
-	
-//	char tempLine[SIZE];
-	
-	
-    for (i = 0; i < NUM_ITEMS + 1; i++)
+    for (int i = 0; i < NUM_ITEMS; i++)
     {
-      // Produce the item outside the critical section
-      char* line = produce_item(i);
-      // Lock the mutex before checking where there is space in the buffer
-      pthread_mutex_lock(&mutex);
-      //while (count == SIZE)
-        // Buffer is full. Wait for the consumer to signal that the buffer has space
-    //    pthread_cond_wait(&empty, &mutex);   
-	
-//	  while((line != END_MARKER) || (inputCount < 50))
-//    {
-      // check here if there 80 items, 
-	// if not, store the line and append the next line to the stored line 
-	// then send the line
-      put_item(line);
-      // Signal to the consumer that the buffer is no longer empty
-      pthread_cond_signal(&full);
-      // Unlock the mutex
-      pthread_mutex_unlock(&mutex);
-      // Print message outside the critical section
-	  //printf("PROD %d\n", value);
-
-	}
-    return NULL;
-}
-
-/*
- Get the next item from the buffer
-*/
-char* get_item()
-{
-    char* line = buffer[con_idx];
-    // Increment the index from which the item will be picked up, rolling over to the start of the buffer if currently at the end of the buffer
-    con_idx = (con_idx + 1) % SIZE;
-    count--;
-    return line;
-}
-
-/*
- Function that the consumer thread will run. Get an item from the buffer if the buffer is not empty. If the buffer is empty then wait until there is data in the buffer.
-*/
-void *consumer(void *args)
-{
-    char* line = NULL;
-    // Continue consuming until the END_MARKER is seen    
-    while (line != END_MARKER)
-    {
-    	// Lock the mutex before checking if the buffer has data      
-      pthread_mutex_lock(&mutex);
-      while (count == 0)
-        // Buffer is empty. Wait for the producer to signal that the buffer has data
-        pthread_cond_wait(&full, &mutex);
-        line = get_item();
-      // Signal to the producer that the buffer has space
-     // pthread_cond_signal(&empty);
-      	// Unlock the mutex
-        pthread_mutex_unlock(&mutex);
-        // Print the message outside the critical section
-
-	
-	// this is how you break up a string
-//   char str[80] = "This is - www.tutorialspoint.com - website";
-//   const char s[2] = "-";
-//   char *token;
-//   
-//   /* get the first token */
-//   token = strtok(str, s);
-//   
-//   /* walk through other tokens */
-//   while( token != NULL ) {
-//      printf( " %s\n", token );
-//    
-//      token = strtok(NULL, s);
-//   }
-
-      printf("COns input %s\n", line);
+      // Get the user input
+      int item = get_user_input();
+      put_buff_1(item);
     }
     return NULL;
 }
 
+/*
+Get the next item from buffer 1
+*/
+int get_buff_1(){
+  // Lock the mutex before checking if the buffer has data
+  pthread_mutex_lock(&mutex_1);
+  while (count_1 == 0)
+    // Buffer is empty. Wait for the producer to signal that the buffer has data
+    pthread_cond_wait(&full_1, &mutex_1);
+  int item = buffer_1[con_idx_1];
+  // Increment the index from which the item will be picked up
+  con_idx_1 = con_idx_1 + 1;
+  count_1--;
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_1);
+  // Return the item
+  return item;
+}
 
+/*
+ Put an item in buff_2
+*/
+void put_buff_2(char* line){
+  // Lock the mutex before putting the item in the buffer
+  pthread_mutex_lock(&mutex_2);
+  // Put the item in the buffer
+  buffer_2[prod_idx_2] = line;
+  // Increment the index where the next item will be put.
+  prod_idx_2 = prod_idx_2 + 1;
+  count_2++;
+  // Signal to the consumer that the buffer is no longer empty
+  pthread_cond_signal(&full_2);
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_2);
+}
 
+/*
+ Function that the square root thread will run. 
+ Consume an item from the buffer shared with the input thread.
+ Compute the square root of the item.
+ Produce an item in the buffer shared with the output thread.
+
+*/
+void *compute_square_root(void *args)
+{
+    char* line = NULL;
+    char* square_root;
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+      line = get_buff_1();
+      square_root = line //sqrt(item);
+      put_buff_2(square_root);
+    }
+    return NULL;
+}
+
+/*
+Get the next item from buffer 2
+*/
+double get_buff_2(){
+  // Lock the mutex before checking if the buffer has data
+  pthread_mutex_lock(&mutex_2);
+  while (count_2 == 0)
+    // Buffer is empty. Wait for the producer to signal that the buffer has data
+    pthread_cond_wait(&full_2, &mutex_2);
+  double item = buffer_2[con_idx_2];
+  // Increment the index from which the item will be picked up
+  con_idx_2 = con_idx_2 + 1;
+  count_2--;
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_2);
+  // Return the item
+  return item;
+}
 
 
 /*
-*
+ Function that the output thread will run. 
+ Consume an item from the buffer shared with the square root thread.
+ Print the item.
 */
-int main(int argc, char* argv[])
+void *write_output(void *args)
 {
+    char* line;
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+      line = get_buff_2();
+      printf("\nOutput: %s\n", line);
+    }
+    return NULL;
+}
 
- 	
-//  	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);    
-//  	if(lineSize >= NUM_ITEMS) {
-//  		
-//  		// first divide it up into sections divisible by 80 and save extra input in line
-//  		//then
-//  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
-//  		printf("will be sending to another thread for processing");
-//	}
-//	else {
-//		// save data, to keep reading in info, and add new info to this line 
-//	}  
-//
-//	}
-//	
-//	
-//  	free(line);
-
-    pthread_t p, c;
-    // Create the producer thread
-    pthread_create(&p, NULL, producer, NULL);
-    // Now create the consumer thread
-    pthread_create(&c, NULL, consumer, NULL);
-    pthread_join(p, NULL);
-    pthread_join(c, NULL);
-    return 0;
+int main()
+{
+   // srand(time(0));
+    pthread_t input_t, square_root_t, output_t;
+    // Create the threads
+    pthread_create(&input_t, NULL, get_input, NULL);
+    pthread_create(&square_root_t, NULL, compute_square_root, NULL);
+    pthread_create(&output_t, NULL, write_output, NULL);
+    // Wait for the threads to terminate
+    pthread_join(input_t, NULL);
+    pthread_join(square_root_t, NULL);
+    pthread_join(output_t, NULL);
+    return EXIT_SUCCESS;
 }
 
