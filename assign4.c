@@ -70,7 +70,7 @@ pthread_cond_t full = PTHREAD_COND_INITIALIZER;
 /*
 Produces a random integer between [0, 1000] unless it is the last item to be produced in which case the value -1 is returned.
 */
-char* produce_item(int i){
+char* produce_item(){
 //	int value;
 //	if (i == NUM_ITEMS)
 //    	value = END_MARKER;
@@ -88,23 +88,18 @@ char* produce_item(int i){
  // 	for(int i=0; i<=49; i++) {
   	lineSize = getline(&line, &len, stdin);
   	
-  	if(strcmp(line, stopProcessing) ==0) {
-  		printf("program will exit");
+  	if(strcmp(line, stopProcessing) == 0) {
   		line = END_MARKER;
   		//return;
   	//	break;
 	//	exit(0);
 	}
-	else if(lineSize >= NUM_ITEMS) {
-  		
-  		// first divide it up into sections divisible by 80 and save extra input in line
-  		//then
-  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
-  		printf("will be sending to another thread for processing");
-	}
-	else
-		// save data, to keep reading in info, and add new info to this line 
-  	
+ 	 // check here if there 80 items, 
+	// if not, store the line and append the next line to the stored line 
+	// then send the line
+	
+	size = lineSize;
+	
   //	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
     
   	return line;
@@ -138,7 +133,14 @@ void *producer(void *args)
       pthread_mutex_lock(&mutex);
       //while (count == SIZE)
         // Buffer is full. Wait for the consumer to signal that the buffer has space
-    //    pthread_cond_wait(&empty, &mutex);
+    //    pthread_cond_wait(&empty, &mutex);   
+	
+	 
+      // check here if there 80 items, 
+	// if not, store the line and append the next line to the stored line 
+	// then send the line
+	  printf("this is the size %d", size);
+	
       put_item(line);
       // Signal to the consumer that the buffer is no longer empty
       pthread_cond_signal(&full);
@@ -171,18 +173,45 @@ void *consumer(void *args)
     // Continue consuming until the END_MARKER is seen    
     while (line != END_MARKER)
     {
-      // Lock the mutex before checking if the buffer has data      
+    	// Lock the mutex before checking if the buffer has data      
       pthread_mutex_lock(&mutex);
       while (count == 0)
         // Buffer is empty. Wait for the producer to signal that the buffer has data
         pthread_cond_wait(&full, &mutex);
-      line = get_item();
+        line = get_item();
       // Signal to the producer that the buffer has space
      // pthread_cond_signal(&empty);
-      // Unlock the mutex
-      pthread_mutex_unlock(&mutex);
-      // Print the message outside the critical section
-      printf("CONS %s\n", line);
+      	// Unlock the mutex
+        pthread_mutex_unlock(&mutex);
+        // Print the message outside the critical section
+      	if(lineSize >= NUM_ITEMS) {  
+		  printf("linesize  is: %s\n", lineSize);
+		 // if(lineSize)		
+  		// first divide it up into sections divisible by 80 and save extra input in line
+  		//then
+  		// send data that is 80 chars long or evenly divisible by 80 to next thread 
+  	//	printf("will be sending to another thread for processing");
+		}
+		else {
+		// save data, to keep reading in info, and add new info to this line 
+		}  
+	
+	
+	// this is how you break up a string
+//   char str[80] = "This is - www.tutorialspoint.com - website";
+//   const char s[2] = "-";
+//   char *token;
+//   
+//   /* get the first token */
+//   token = strtok(str, s);
+//   
+//   /* walk through other tokens */
+//   while( token != NULL ) {
+//      printf( " %s\n", token );
+//    
+//      token = strtok(NULL, s);
+//   }
+      printf("COns input %s\n", line);
     }
     return NULL;
 }
@@ -197,24 +226,8 @@ void *consumer(void *args)
 int main(int argc, char* argv[])
 {
 
-//	char *line = NULL;
-//	// don''t have to declare malloc because  of getline function
-////	line = (char *)malloc(sizeof(char)*size);
-//  	size_t len = 0;
-//  	ssize_t lineSize = 0;
-//  	ssize_t tempLineSize = 0;
-//  	
-//  	for(int i=0; i<=49; i++) {
-//  	lineSize = getline(&line, &len, stdin);
-//  	
-//  	if(strcmp(line, stopProcessing) ==0) {
-//  		printf("program will exit");
-//  		//return;
-//	//	exit(0);
-//	}
-//  	
-//  	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);
-//    
+ 	
+//  	printf("You entered %s: which has %zu chars.\n", line, lineSize - 1);    
 //  	if(lineSize >= NUM_ITEMS) {
 //  		
 //  		// first divide it up into sections divisible by 80 and save extra input in line
@@ -230,14 +243,7 @@ int main(int argc, char* argv[])
 //	
 //	
 //  	free(line);
-  	
-//	for(i=0;i<1;i++) {
-//		printf("this is comlineargs %s", commLineParams);
-//	}
-//	printf("this is comlineargs %s\n", argv[0]);
-//	printf("this is comlineargs count %d\n", argc);
 
- //   srand(time(0));
     pthread_t p, c;
     // Create the producer thread
     pthread_create(&p, NULL, producer, NULL);
