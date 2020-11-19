@@ -173,7 +173,7 @@ void *lineSeparator(void *args)
     char* line = NULL;
     char* square_root1;
     
-    char space = ' '
+    char space = ' ';
     char diagLine = '\'';
     char n = 'n';
     char newLine[] = "\n";
