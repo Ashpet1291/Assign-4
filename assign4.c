@@ -262,24 +262,23 @@ void *changePlusSign(void *args)
     	
     	
     	int i = 0;
+    	size_t x;
     	char *ptr = strstr(line, plus);
 
 		if (ptr != NULL) /* Substring found */
 		{
 			printf("'%s' contains '%s'\n", line, plus);
 		
-			success = strncpy(lineArray, line, 80);
-			
-			if(success == NULL) {
-				printf("failure");
-			}
-			for(i=0; i< NUM_ITEMS; i++) {
+//			success = strncpy(lineArray, line, 80);
+//			
+//			if(success == NULL) {
+//				printf("failure");
+//			}
+			for(x=0; x< NUM_ITEMS; x++) {
 				
-				if(strcmp(lineArray[i], onePlus) == 0) {
-					printf("the problem is elsewhere");
-//					lineArray[i] = carat;
-//					lineArray[i+1]= line[i+2];
-				}
+				printf("%c\n", line[i]);
+ //char * string = "hello world"; 
+ //* This 11 chars long, excluding the 0-terminator. */ size_t i = 0; for (; i < 11; i++) { printf("%c ", string[i]);				
 			//	printf("this is line array: %s\n", lineArray);
 			}
 //			(strcmp(commands[0], exitProgram) == 0)
@@ -310,6 +309,8 @@ void *changePlusSign(void *args)
     }
     return NULL;
 }
+
+
 
 //
 //char str[] = "teacher teach tea";
