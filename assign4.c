@@ -252,7 +252,6 @@ void *changePlusSign(void *args)
     
     char plus[] = {"++"};
     char onePlus[] = {"+"};
-    char *ptr = NULL;
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
@@ -260,7 +259,7 @@ void *changePlusSign(void *args)
     	
     	
     	int i = 0;
-        *ptr = strstr(line, plus);
+    	char *ptr = strstr(line, plus);
 
 		if (ptr != NULL) /* Substring found */
 		{
@@ -276,13 +275,13 @@ void *changePlusSign(void *args)
 //				}
 //			}
  		}
-		else /* Substring not found */
+		 /* Substring not found */
     	
-        square_root = line; //sqrt(item);
+    square_root = line; //sqrt(item);
         
         
         
-        put_buff_3(square_root);
+    put_buff_3(square_root);
  //       printf("\nthirdthread: \n");
     }
     return NULL;
