@@ -249,6 +249,7 @@ void *changePlusSign(void *args)
 {
     char* line = NULL;
     char* square_root;
+    char lineArray[82];
     
     char plus[] = {"++"};
     char onePlus[] = {"+"};
@@ -266,15 +267,26 @@ void *changePlusSign(void *args)
 		{
 			printf("'%s' contains '%s'\n", line, plus);
 		
-		
-		//strcpy(line);	
-			while(*line != NULL) {
-				
-				if(strcmp(line[i], onePlus) == 0 && strcmp(line[i + 1], onePlus) == 0){
-					line[i] = carat;
-					line[i+1]= line[i+2];
-				}
+			strncpy(lineArray, line, sizeof line-1)
+			for(i=0; i< NUM_ITEMS; i++) {
+				printf("%s", lineArray[i]);
 			}
+			
+//			int array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+//   int loop;
+//
+//   for(loop = 0; loop < 10; loop++)
+//      printf("%d ", array[loop]);
+
+
+		//strcpy(line);	
+//			while(*line != NULL) {
+//				
+//				if(strcmp(line[i], onePlus) == 0 && strcmp(line[i + 1], onePlus) == 0){
+//					line[i] = carat;
+//					line[i+1]= line[i+2];
+//				}
+//			}
  		}
 		 /* Substring not found */
     	
