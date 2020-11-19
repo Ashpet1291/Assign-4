@@ -171,12 +171,45 @@ void put_buff_2(char* line){
 void *lineSeparator(void *args)
 {
     char* line = NULL;
-    char* square_root;
+    char* square_root1;
+    
+    char space = ' '
+    char diagLine = '\';
+    char n = 'n';
+    char newLine[] = "\n";
+    
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	line = get_buff_1();
-        square_root = line; //sqrt(item);
-        put_buff_2(square_root);
+    	   	
+    	int i = 0;
+    	size_t y;
+    	char *ptr = strstr(line, newLine);
+
+		if (ptr != NULL) /* Substring found */
+		{
+			printf("'%s' contains '%s'\n", line, newLine);
+		
+
+			int r = 0;
+			for(y=0; y < NUM_ITEMS; y++) {
+				
+				if((line[y] == diagLine) && (line[y + 1] == n)){
+				
+					line[y] = space;
+					
+					r = x;
+					
+					while(line[r+1] != '\0') {
+						line[r +1] = line[r+2];
+						r++;
+					}
+			   }   
+    		}
+		}
+
+        square_root1 = line; //sqrt(item);
+        put_buff_2(square_root1);
       //  printf("\nsecondthread: \n");
     }
    
