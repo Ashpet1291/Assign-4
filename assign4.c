@@ -276,7 +276,7 @@ void *changePlusSign(void *args)
 //			}
 			for(x=0; x< NUM_ITEMS; x++) {
 				
-				printf("%c\n", line[i]);
+				printf("%c\n", line[x]);
  //char * string = "hello world"; 
  //* This 11 chars long, excluding the 0-terminator. */ size_t i = 0; for (; i < 11; i++) { printf("%c ", string[i]);				
 			//	printf("this is line array: %s\n", lineArray);
