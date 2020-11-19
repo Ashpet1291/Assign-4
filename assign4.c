@@ -301,9 +301,9 @@ void *changePlusSign(void *args)
 				
 				if((strcmp(line[x], onePlus) == 0) && (strcmp(line[x + 1], onePlus) == 0)){
 				//	line[x] = carat;
-					removeDuplicates(line);
+				//	removeDuplicates(line);
 					//printf("%c\n", line[x]);
-					
+					printf("thisprint");
 			   } 
 			   
 		}
