@@ -299,11 +299,11 @@ void *changePlusSign(void *args)
 //			}
 			for(x=0; x < NUM_ITEMS; x++) {
 				
-				if((strcmp(line[x], onePlus) == 0) && (strcmp(line[x + 1], onePlus) == 0)){
+				if((line[x] == onePlus) && (line[x + 1] == onePlus)){
 				//	line[x] = carat;
 				//	removeDuplicates(line);
-					//printf("%c\n", line[x]);
-					printf("thisprint");
+					printf("%c\n", line[x]);
+				//	printf("thisprint");
 			   } 
 			   
 		}
