@@ -252,6 +252,7 @@ void *changePlusSign(void *args)
     
     char plus[] = {"++"};
     char onePlus[] = {"+"};
+    char carat[] = {"^"}
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
@@ -267,13 +268,13 @@ void *changePlusSign(void *args)
 		
 		
 		//strcpy(line);	
-//			while(line != NULL) {
-//				
-//				if((strcmp(line[i], onePlus) == 0) && strcmp(line[i + 1], onePlus) == 0){
-//					line[i] = "^";
-//					line[i+1]= line[i+2];
-//				}
-//			}
+			while(*line != NULL) {
+				
+				if(strcmp(line[i], onePlus) == 0 && strcmp(line[i + 1], onePlus) == 0){
+					line[i] = carat;
+					line[i+1]= line[i+2];
+				}
+			}
  		}
 		 /* Substring not found */
     	
