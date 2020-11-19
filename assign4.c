@@ -273,10 +273,14 @@ void *changePlusSign(void *args)
 			if(success == NULL) {
 				printf("failure");
 			}
-		//	for(i=0; i< NUM_ITEMS; i++) {
-				printf("this is line array: %s\n", lineArray);
-		//	}
-//			
+			for(i=0; i< NUM_ITEMS; i++) {
+				if((strcmp(lineArray[i], onePlus) == 0) && (strcmp(lineArray[i + 1], onePlus) == 0)){
+					lineArray[i] = carat;
+					lineArray[i+1]= line[i+2];
+				}
+			//	printf("this is line array: %s\n", lineArray);
+			}
+//			(strcmp(commands[0], exitProgram) == 0)
 //			int array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 //   int loop;
 //
