@@ -283,7 +283,9 @@ void *changePlusSign(void *args)
         			while (line[x] != '\0') { 
             			line[x+1] = line[x + 2]; 
             			x++; 
-       				} 
+       				
+					   }
+					   } 
 				//	line[x+1] = line[x+2];
 //			void removeDuplicates(char* S) 
 //{ 
