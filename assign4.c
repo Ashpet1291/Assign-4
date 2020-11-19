@@ -251,11 +251,10 @@ void *changePlusSign(void *args)
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	line = get_buff_2();
-        strcpy(square_root, line); //sqrt(item);
+        square_root = line; //sqrt(item);
         put_buff_3(square_root);
-      
+        printf("\nthirdthread: \n");
     }
-    printf("thirdthread: \n");
     return NULL;
 }
 
