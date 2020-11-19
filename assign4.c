@@ -301,10 +301,14 @@ void *changePlusSign(void *args)
 				
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){
 				
-				//	line[x] = carat;
-				removeDuplicates(line);
+					line[x] = carat;
+					
+					while(line[x] != '\0') {
+						line[x +1] = line[x+2];
+					}
+				
 				//	printf("%c\n", line[x]);
-					printf("thisprint");
+					//printf("thisprint");
 			   } 
 			   
 		}
