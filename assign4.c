@@ -201,6 +201,25 @@ void put_buff_3(char* line){
 }
 
 
+/*
+Get the next item from buffer 2
+*/
+char* get_buff_3(){
+  // Lock the mutex before checking if the buffer has data
+  pthread_mutex_lock(&mutex_2);
+  while (count_3 == 0)
+    // Buffer is empty. Wait for the producer to signal that the buffer has data
+    pthread_cond_wait(&full_3, &mutex_3);
+  char* line = buffer_3[con_idx_3];
+  // Increment the index from which the item will be picked up
+  con_idx_3 = con_idx_3 + 1;
+  count_3--;
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_3);
+  // Return the item
+  return line;
+}
+
 
 /*
 Get the next item from buffer 2
