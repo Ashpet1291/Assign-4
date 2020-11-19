@@ -264,14 +264,16 @@ void *changePlusSign(void *args)
 		if (ptr != NULL) /* Substring found */
 		{
 			printf("'%s' contains '%s'\n", line, plus);
-			
-			while(line != NULL) {
-				
-				if((strcmp(line[i], onePlus) == 0) && strcmp(line[i + 1], onePlus) == 0){
-					line[i] = "^";
-					line[i+1]= line[i+2];
-				}
-			}
+		
+		
+		//strcpy(line);	
+//			while(line != NULL) {
+//				
+//				if((strcmp(line[i], onePlus) == 0) && strcmp(line[i + 1], onePlus) == 0){
+//					line[i] = "^";
+//					line[i+1]= line[i+2];
+//				}
+//			}
  		}
 		else /* Substring not found */
     	
