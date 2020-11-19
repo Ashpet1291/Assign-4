@@ -177,7 +177,7 @@ void *lineSeparator(void *args)
     	line = get_buff_1();
         square_root = line; //sqrt(item);
         put_buff_2(square_root);
-        printf("\nsecondthread: \n");
+      //  printf("\nsecondthread: \n");
     }
    
     return NULL;
@@ -249,18 +249,54 @@ void *changePlusSign(void *args)
 {
     char* line = NULL;
     char* square_root;
+    
+    char plus[] = {"++"};
+    
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	line = get_buff_2();
+    	
+    	
+    	
+    	char *ptr = strstr(line, plus);
+
+		if (ptr != NULL) /* Substring found */
+		{
+			printf("'%s' contains '%s'\n", line, plus);
+		}
+		else /* Substring not found */
+		{
+			printf("'%s' doesn't contain '%s'\n", line, plus);
+		}
+    	
+    	
+    	
         square_root = line; //sqrt(item);
+        
+        
+        
         put_buff_3(square_root);
-        printf("\nthirdthread: \n");
+ //       printf("\nthirdthread: \n");
     }
     return NULL;
 }
 
-
-
+//
+//char str[] = "teacher teach tea";
+//	char search[] = "ac";
+//	char *ptr = strstr(str, search);
+//
+//	if (ptr != NULL) /* Substring found */
+//	{
+//		printf("'%s' contains '%s'\n", str, search);
+//	}
+//	else /* Substring not found */
+//	{
+//		printf("'%s' doesn't contain '%s'\n", str, search);
+//	}
+//
+//	return 0;
+//}
 
 
 
