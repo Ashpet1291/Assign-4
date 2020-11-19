@@ -25,7 +25,7 @@
 #define SIZE 100
 
 // Number of items that will be produced. This number is less than the size of the buffer. Hence, we can model the buffer as being unbounded.
-#define NUM_ITEMS 6 //80
+#define NUM_ITEMS 80 //80
 
 // Buffer 1, shared resource between input thread and square-root thread
 char* buffer_1[SIZE];
@@ -68,7 +68,7 @@ pthread_mutex_t mutex_3 = PTHREAD_MUTEX_INITIALIZER;
 // Initialize the condition variable for buffer 2
 pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
-char stopProcessing[] = "STOP\n";
+
 /*
 Get input from the user.
 This function doesn't perform any error checking.
@@ -117,8 +117,8 @@ void *get_input(void *args)
     for (int i = 0; i < NUM_ITEMS; i++)
     {
       // Get the user input
-      char* item = get_user_input();
-      put_buff_1(item);
+      char* line = get_user_input();
+      put_buff_1(line);
     }
     return NULL;
 }
@@ -206,7 +206,7 @@ Get the next item from buffer 2
 */
 char* get_buff_3(){
   // Lock the mutex before checking if the buffer has data
-  pthread_mutex_lock(&mutex_2);
+  pthread_mutex_lock(&mutex_3);
   while (count_3 == 0)
     // Buffer is empty. Wait for the producer to signal that the buffer has data
     pthread_cond_wait(&full_3, &mutex_3);
@@ -251,7 +251,7 @@ void *changePlusSign(void *args)
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	line = get_buff_2();
-        square_root = line; //sqrt(item);
+        strcpy(square_root, line); //sqrt(item);
         put_buff_3(square_root);
         printf("\nthirdthread: \n");
     }
