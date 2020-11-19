@@ -300,13 +300,9 @@ void *changePlusSign(void *args)
 			for(x=0; x < NUM_ITEMS; x++) {
 				
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){
-					line[x] = carat;
-					
-					while(line[x+1] != "\0") {
-						line[x+1] = line[x+2];
-					}
+				
 				//	line[x] = carat;
-				//	removeDuplicates(line);
+					removeDuplicates(line);
 				//	printf("%c\n", line[x]);
 				//	printf("thisprint");
 			   } 
