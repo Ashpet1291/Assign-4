@@ -177,8 +177,8 @@ void *lineSeparator(void *args)
     	line = get_buff_1();
         square_root = line; //sqrt(item);
         put_buff_2(square_root);
-        printf("\nsecondthread: \n");
     }
+    printf("secondthread: \n");
     return NULL;
 }
 
@@ -253,8 +253,9 @@ void *changePlusSign(void *args)
     	line = get_buff_2();
         strcpy(square_root, line); //sqrt(item);
         put_buff_3(square_root);
-        printf("\nthirdthread: \n");
+      
     }
+    printf("thirdthread: \n");
     return NULL;
 }
 
