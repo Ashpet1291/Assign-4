@@ -194,7 +194,7 @@ void *lineSeparator(void *args)
 			int r = 0;
 			for(y=0; y < NUM_ITEMS; y++) {
 				
-				if(line[y] == diagLine) {
+				if(line[y] == n) {
 				
 					line[y] = space;
 					
