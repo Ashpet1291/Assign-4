@@ -257,19 +257,21 @@ void *changePlusSign(void *args)
     	line = get_buff_2();
     	
     	
-    	
+    	int i = 0;
     	char *ptr = strstr(line, plus);
 
 		if (ptr != NULL) /* Substring found */
 		{
 			printf("'%s' contains '%s'\n", line, plus);
-		}
+			while(line != NULL) {
+				
+				if((line[i] == "+") && (line[i + 1] == "+")) {
+					line[i] = "^";
+					line[i+1]= line[i+2];
+				}
+			}
+ 		}
 		else /* Substring not found */
-		{
-			printf("'%s' doesn't contain '%s'\n", line, plus);
-		}
-    	
-    	
     	
         square_root = line; //sqrt(item);
         
