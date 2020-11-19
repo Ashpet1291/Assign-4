@@ -252,6 +252,7 @@ void *changePlusSign(void *args)
     
     char plus[] = {"++"};
     char onePlus[] = {"+"};
+    char *ptr = NULL
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
@@ -259,7 +260,7 @@ void *changePlusSign(void *args)
     	
     	
     	int i = 0;
-    	char *ptr = strstr(line, plus);
+        *ptr = strstr(line, plus);
 
 		if (ptr != NULL) /* Substring found */
 		{
