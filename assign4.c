@@ -275,8 +275,8 @@ void *changePlusSign(void *args)
     char lineArray[82];
     
     char plus[] = {"++"};
-    char onePlus[] = {"+"};
-    char carat[] = {"^"};
+    char onePlus = '+';
+    char carat = '^';
     char* success =NULL;
     
     for (int i = 0; i < NUM_ITEMS; i++)
@@ -302,7 +302,7 @@ void *changePlusSign(void *args)
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){
 				
 				//	line[x] = carat;
-					removeDuplicates(line);
+			
 				//	printf("%c\n", line[x]);
 				//	printf("thisprint");
 			   } 
