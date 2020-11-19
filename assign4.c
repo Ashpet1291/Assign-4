@@ -25,7 +25,7 @@
 #define SIZE 1000
 
 // Number of items that will be produced. This number is less than the size of the buffer. Hence, we can model the buffer as being unbounded.
-#define NUM_ITEMS 45 //80
+#define NUM_ITEMS 1000 //80
 
 // Buffer 1, shared resource between input thread and square-root thread
 char* buffer_1[SIZE];
