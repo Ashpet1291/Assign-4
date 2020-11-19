@@ -251,6 +251,7 @@ void *changePlusSign(void *args)
     char* square_root;
     
     char plus[] = {"++"};
+    char onePlus[] = {"+"}
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
@@ -265,7 +266,7 @@ void *changePlusSign(void *args)
 			printf("'%s' contains '%s'\n", line, plus);
 			while(line != NULL) {
 				
-				if((line[i] == "+") && (line[i + 1] == "+")) {
+				if((strcmp(line[i], onePlus) == 0) && strcmp(line[i + 1], onePlus) == 0){
 					line[i] = "^";
 					line[i+1]= line[i+2];
 				}
