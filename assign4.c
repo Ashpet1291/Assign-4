@@ -55,7 +55,18 @@ pthread_mutex_t mutex_2 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_2 = PTHREAD_COND_INITIALIZER;
 
 
-
+// Buffer 3, shared resource between 3rd thread and output thread
+char* buffer_3[SIZE];
+// Number of items in the buffer
+int count_3 = 0;
+// Index where the square-root thread will put the next item
+int prod_idx_3 = 0;
+// Index where the output thread will pick up the next item
+int con_idx_3 = 0;
+// Initialize the mutex for buffer 2
+pthread_mutex_t mutex_3 = PTHREAD_MUTEX_INITIALIZER;
+// Initialize the condition variable for buffer 2
+pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 char stopProcessing[] = "STOP\n";
 /*
@@ -69,7 +80,6 @@ char* get_user_input(){
 	
 		
 	char* line = NULL;
-	printf("Enter a senetence: ");
 	
 	lineSize = getline(&line, &len, stdin);
 //	
@@ -84,17 +94,17 @@ char* get_user_input(){
  Put an item in buff_1
 */
 void put_buff_1(char* line){
-  // Lock the mutex before putting the item in the buffer
-  pthread_mutex_lock(&mutex_1);
-  // Put the item in the buffer
-  buffer_1[prod_idx_1] = line;
-  // Increment the index where the next item will be put.
-  prod_idx_1 = prod_idx_1 + 1;
-  count_1++;
-  // Signal to the consumer that the buffer is no longer empty
-  pthread_cond_signal(&full_1);
-  // Unlock the mutex
-  pthread_mutex_unlock(&mutex_1);
+	// Lock the mutex before putting the item in the buffer
+	pthread_mutex_lock(&mutex_1);
+	// Put the item in the buffer
+	buffer_1[prod_idx_1] = line;
+	// Increment the index where the next item will be put.
+  	prod_idx_1 = prod_idx_1 + 1;
+  	count_1++;
+  	// Signal to the consumer that the buffer is no longer empty
+  	pthread_cond_signal(&full_1);
+  	// Unlock the mutex
+  	pthread_mutex_unlock(&mutex_1);
 }
 
 /*
@@ -155,8 +165,10 @@ void put_buff_2(char* line){
  Compute the square root of the item.
  Produce an item in the buffer shared with the output thread.
 
+/*
+* This function gets rid of line separators
 */
-void *compute_square_root(void *args)
+void *lineSeparator(void *args)
 {
     char* line = NULL;
     char* square_root;
@@ -165,9 +177,46 @@ void *compute_square_root(void *args)
     	line = get_buff_1();
         square_root = line; //sqrt(item);
         put_buff_2(square_root);
+        printf("\nsecondthread: \n");
     }
     return NULL;
 }
+
+
+/*
+ Put an item in buff_2
+*/
+void put_buff_3(char* line){
+  // Lock the mutex before putting the item in the buffer
+  pthread_mutex_lock(&mutex_3);
+  // Put the item in the buffer
+  buffer_3[prod_idx_3] = line;
+  // Increment the index where the next item will be put.
+  prod_idx_3 = prod_idx_3 + 1;
+  count_3++;
+  // Signal to the consumer that the buffer is no longer empty
+  pthread_cond_signal(&full_3);
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_3);
+}
+
+
+
+void *changePlusSign(void *args)
+{
+    char* line = NULL;
+    char* square_root;
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+    	line = get_buff_2();
+        square_root = line; //sqrt(item);
+        put_buff_3(square_root);
+        printf("\nthirdthread: \n");
+    }
+    return NULL;
+}
+
+
 
 /*
 Get the next item from buffer 2
@@ -199,23 +248,27 @@ void *write_output(void *args)
     char* line;
     for (int i = 0; i < NUM_ITEMS; i++)
     {
-      line = get_buff_2();
+      line = get_buff_3();
       printf("\nOutput: %s\n", line);
     }
     return NULL;
 }
 
+
+
 int main()
 {
    // srand(time(0));
-    pthread_t input_t, square_root_t, output_t;
+    pthread_t input_t, lineSeparator_t, changePlusSign_t, output_t;
     // Create the threads
     pthread_create(&input_t, NULL, get_input, NULL);
-    pthread_create(&square_root_t, NULL, compute_square_root, NULL);
+    pthread_create(&lineSeparator_t, NULL, lineSeparator, NULL);
+    pthread_create(&changePlusSign_t, NULL, changePlusSign, NULL);
     pthread_create(&output_t, NULL, write_output, NULL);
     // Wait for the threads to terminate
     pthread_join(input_t, NULL);
-    pthread_join(square_root_t, NULL);
+    pthread_join(lineSeparator_t, NULL);
+    pthread_join(changePlusSign_t, NULL);
     pthread_join(output_t, NULL);
     return EXIT_SUCCESS;
 }
