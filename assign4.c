@@ -274,50 +274,48 @@ void *changePlusSign(void *args)
 //			if(success == NULL) {
 //				printf("failure");
 //			}
-			for(x=0; x< NUM_ITEMS; x++) {
+			for(x=0; x < NUM_ITEMS; x++) {
 				
 				if((strcmp(line[x], onePlus) == 0) && (strcmp(line[x + 1], onePlus) == 0)){
-					line[x] = carat;
+				//	line[x] = carat;
+					removeDuplicates(line);
+					//printf("%c\n", line[x]);
 					
-				//	int p = 0;  
-        			while (line[x] != '\0') { 
-            			line[x+1] = line[x + 2]; 
-            			x++; 
-       				
-					   }
-					   } 
+			   } 
+			   
+		}
 				//	line[x+1] = line[x+2];
-//			void removeDuplicates(char* S) 
-//{ 
-//    // When string is empty, return 
-//    if (S[0] == '\0') 
-//        return; 
-//  
-//    // if the adjacent characters are same 
-//    if (S[0] == S[1]) { 
-//          
-//        // Shift character by one to left 
-//        int i = 0;  
-//        while (S[i] != '\0') { 
-//            S[i] = S[i + 1]; 
-//            i++; 
-//        } 
-//  
-//        // Check on Updated String S 
-//        removeDuplicates(S); 
-//    } 
-//  
-//    // If the adjacent characters are not same 
-//    // Check from S+1 string address 
-//    removeDuplicates(S + 1); 
-//} 
+				
+void removeDuplicates(char* S) 
+{ 
+    // When string is empty, return 
+    if (S[0] == '\0') 
+        return; 
+  
+    // if the adjacent characters are same 
+    if (S[0] == S[1]) { 
+          
+        // Shift character by one to left 
+        int i = 0;  
+        while (S[i] != '\0') { 
+            S[i] = S[i + 1]; 
+            i++; 
+        } 
+  
+        // Check on Updated String S 
+        removeDuplicates(S); 
+    } 
+  
+    // If the adjacent characters are not same 
+    // Check from S+1 string address 
+    removeDuplicates(S + 1); 
+} 
 //  	
 				
 				//printf("%c\n", line[x]);
  //char * string = "hello world"; 
  //* This 11 chars long, excluding the 0-terminator. */ size_t i = 0; for (; i < 11; i++) { printf("%c ", string[i]);				
 			//	printf("this is line array: %s\n", lineArray);
-			}
 //			(strcmp(commands[0], exitProgram) == 0)
 //			int array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 //   int loop;
