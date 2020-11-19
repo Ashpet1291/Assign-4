@@ -268,13 +268,14 @@ void *changePlusSign(void *args)
 		{
 			printf("'%s' contains '%s'\n", line, plus);
 		
-			success = strncpy(lineArray, line, sizeof line-1);
+			success = strncpy(lineArray, line, 80);
+			
 			if(success == NULL) {
 				printf("failure");
 			}
-			for(i=0; i< NUM_ITEMS; i++) {
+		//	for(i=0; i< NUM_ITEMS; i++) {
 				printf("this is line array: %s\n", lineArray);
-			}
+		//	}
 //			
 //			int array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 //   int loop;
