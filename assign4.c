@@ -304,7 +304,7 @@ void *changePlusSign(void *args)
 				//	line[x] = carat;
 			
 				//	printf("%c\n", line[x]);
-				//	printf("thisprint");
+					printf("thisprint");
 			   } 
 			   
 		}
