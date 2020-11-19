@@ -297,15 +297,19 @@ void *changePlusSign(void *args)
 //			if(success == NULL) {
 //				printf("failure");
 //			}
+
+			int s = 0;
 			for(x=0; x < NUM_ITEMS; x++) {
 				
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){
 				
 					line[x] = carat;
 					
-					while(line[x+1] != '\0') {
-						line[x +1] = line[x+2];
-						x++;
+					s = x;
+					
+					while(line[s+1] != '\0') {
+						line[s +1] = line[s+2];
+						s++;
 					}
 				
 				//	printf("%c\n", line[x]);
