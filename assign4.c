@@ -85,10 +85,10 @@ char* get_user_input(){
 	char* line2 = NULL;
 	
 		
-	while(loop < max) {
+//	while(loop < max) {
 		lineSize = getline(&line2, &len, stdin);
-		loop++;
-	}
+//		loop++;
+//	}
 	
 //	lineSize = getline(&line, &len, stdin);
 //	
