@@ -267,7 +267,7 @@ void *changePlusSign(void *args)
 		{
 			printf("'%s' contains '%s'\n", line, plus);
 		
-			strncpy(lineArray, line, sizeof line-1)
+			strncpy(lineArray, line, sizeof line-1);
 			for(i=0; i< NUM_ITEMS; i++) {
 				printf("%s", lineArray[i]);
 			}
