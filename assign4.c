@@ -82,13 +82,15 @@ char* get_user_input(){
 
 		
 	char* line = NULL;
+	char* line2 = NULL;
 	
+		
 	while(loop < max) {
-		lineSize = getline(&line, &len, stdin);
+		lineSize = getline(&line2, &len, stdin);
 		loop++;
 	}
 	
-	lineSize = getline(&line, &len, stdin);
+//	lineSize = getline(&line, &len, stdin);
 //	
 //	if(strcmp(line, stopProcessing) == 0) {
 //		line = END_MARKER;
