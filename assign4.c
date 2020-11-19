@@ -273,7 +273,7 @@ void *changePlusSign(void *args)
 				printf("failure");
 			}
 			for(i=0; i< NUM_ITEMS; i++) {
-				printf("this is line array: %s", lineArray);
+				printf("this is line array: %s\n", lineArray);
 			}
 //			
 //			int array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
