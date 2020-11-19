@@ -77,9 +77,16 @@ char* get_user_input(){
 	size_t len = 0;
 	ssize_t lineSize = 0;
 	ssize_t templineSize = 0;	
-	
+	int max = 45;
+	int loop;
+
 		
 	char* line = NULL;
+	
+	while(loop < max) {
+		lineSize = getline(&line, &len, stdin);
+		loop++;
+	}
 	
 	lineSize = getline(&line, &len, stdin);
 //	
@@ -188,7 +195,7 @@ void *lineSeparator(void *args)
 
 		if (ptr != NULL) /* Substring found */
 		{
-			printf("'%s' contains '%s'\n", line, newLine);
+		//	printf("'%s' contains '%s'\n", line, newLine);
 		
 
 			int r = 0;
@@ -300,7 +307,7 @@ void *changePlusSign(void *args)
 
 		if (ptr != NULL) /* Substring found */
 		{
-			printf("'%s' contains '%s'\n", line, plus);
+//			printf("'%s' contains '%s'\n", line, plus);
 		
 
 			int s = 0;
