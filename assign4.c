@@ -303,9 +303,9 @@ void *changePlusSign(void *args)
 				
 					line[x] = carat;
 					
-					while(line[x] != '\0') {
-						line[x +1] = line[x+2];
-					}
+//					while(line[x] != '\0') {
+//						line[x +1] = line[x+2];
+//					}
 				
 				//	printf("%c\n", line[x]);
 					//printf("thisprint");
