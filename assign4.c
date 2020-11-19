@@ -202,22 +202,6 @@ void put_buff_3(char* line){
 
 
 
-void *changePlusSign(void *args)
-{
-    char* line = NULL;
-    char* square_root;
-    for (int i = 0; i < NUM_ITEMS; i++)
-    {
-    	line = get_buff_2();
-        square_root = line; //sqrt(item);
-        put_buff_3(square_root);
-        printf("\nthirdthread: \n");
-    }
-    return NULL;
-}
-
-
-
 /*
 Get the next item from buffer 2
 */
@@ -236,6 +220,28 @@ char* get_buff_2(){
   // Return the item
   return line;
 }
+
+
+
+
+
+void *changePlusSign(void *args)
+{
+    char* line = NULL;
+    char* square_root;
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+    	line = get_buff_2();
+        square_root = line; //sqrt(item);
+        put_buff_3(square_root);
+        printf("\nthirdthread: \n");
+    }
+    return NULL;
+}
+
+
+
+
 
 
 /*
