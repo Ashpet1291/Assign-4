@@ -302,7 +302,7 @@ void *changePlusSign(void *args)
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){
 				
 				//	line[x] = carat;
-			
+				removeDuplicates(line);
 				//	printf("%c\n", line[x]);
 					printf("thisprint");
 			   } 
