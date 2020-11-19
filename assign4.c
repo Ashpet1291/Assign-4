@@ -252,7 +252,7 @@ void *changePlusSign(void *args)
     
     char plus[] = {"++"};
     char onePlus[] = {"+"};
-    char *ptr = NULL
+    char *ptr = NULL;
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
