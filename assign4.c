@@ -254,6 +254,7 @@ void *changePlusSign(void *args)
     char plus[] = {"++"};
     char onePlus[] = {"+"};
     char carat[] = {"^"};
+    char* success =NULL;
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
@@ -267,11 +268,14 @@ void *changePlusSign(void *args)
 		{
 			printf("'%s' contains '%s'\n", line, plus);
 		
-			strncpy(lineArray, line, sizeof line-1);
-			for(i=0; i< NUM_ITEMS; i++) {
-				printf("%s", lineArray[i]);
+			success = strncpy(lineArray, line, sizeof line-1);
+			if(success == NULL) {
+				printf("failure");
 			}
-			
+//			for(i=0; i< NUM_ITEMS; i++) {
+//				printf("%s", lineArray[i]);
+//			}
+//			
 //			int array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 //   int loop;
 //
