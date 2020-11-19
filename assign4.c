@@ -274,7 +274,8 @@ void *changePlusSign(void *args)
 				printf("failure");
 			}
 			for(i=0; i< NUM_ITEMS; i++) {
-				if((strcmp(lineArray[i], onePlus) == 0) && (strcmp(lineArray[i + 1], onePlus) == 0)){
+				
+				if(strcmp(lineArray[i], onePlus) == 0) {
 					printf("the problem is elsewhere");
 //					lineArray[i] = carat;
 //					lineArray[i+1]= line[i+2];
