@@ -174,7 +174,7 @@ void *lineSeparator(void *args)
     char* square_root1;
     
     char space = ' ';
-    char diagLine = "" ;
+   // char diagLine = "" ;
     char n = '\n';
     char newLine[] = "\n";
     
@@ -194,7 +194,7 @@ void *lineSeparator(void *args)
 			int r = 0;
 			for(y=0; y < NUM_ITEMS; y++) {
 				
-				if((line[y] == diagLine) {
+				if(line[y] == diagLine) {
 				
 					line[y] = space;
 					
