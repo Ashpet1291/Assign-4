@@ -346,7 +346,7 @@ void *write_output(void *args)
       // get the item form buffer 3 to print
       line = get_buff_3();
       
-      	size_t size = SIZEOF(line);
+      	size_t size = sizeof(line);
   //    size = sizeof(line);
       
       printf("%d", size);
