@@ -9,7 +9,7 @@
 
 
 // to run the code
-//gcc -std=gnu99 -pthread -o main assign4.c
+//gcc -std=gnu99 -pthread -o line_processor assign4.c
 
 
 
