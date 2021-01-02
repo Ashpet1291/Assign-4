@@ -182,7 +182,6 @@ void *lineSeparator(void *args)
     char* square_root1;
     
     char space = ' ';
-    char n = '\n';
     char newLine[] = "\n";
     
     for (int i = 0; i < NUM_ITEMS; i++)
@@ -203,6 +202,8 @@ void *lineSeparator(void *args)
 				// if the spot in the word contains \n, change it to a space
 				if(line[y] == n) {
 				
+					
+				//	strcpy()
 					line[y] = space;									
 //					r = y;
 //					// shift everything else over one spot, because we lost one item in size
@@ -338,24 +339,24 @@ void *changePlusSign(void *args)
 */
 void *write_output(void *args)
 {
-    char* line;
+    char* line3;
     int size = 0;
     
-    for (int i = 0; i < NUM_ITEMS; i++)
-    {
-      // get the item form buffer 3 to print
-      line = get_buff_3();
-      
-    //  	size_t size = (*line); //           dont work
-      size = sizeof(line);
-      
-      printf("%d", size);
-      
-      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
-      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
-      // if less than buffer put line in temp string to get next input
-    //  printf("\nOutput: %s\n", line);
-    }
+//    for (int i = 0; i < NUM_ITEMS; i++)
+//    {
+//      // get the item from buffer 3 to print
+      line3 = get_buff_3();
+//      
+//    
+      size = sizeof(line3);
+//      
+//      printf("%d", size);
+//      
+//      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
+//      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
+//      // if less than buffer put line in temp string to get next input
+//    //  printf("\nOutput: %s\n", line);
+//    }
     return NULL;
 }
 
