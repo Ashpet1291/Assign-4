@@ -28,9 +28,9 @@
 // Number of items that will be produced. This number is less than the size of the buffer. Hence, we can model the buffer as being unbounded.
 #define NUM_ITEMS 1000 //80
 
-#define MAX_LINES 45
+#define MAX_LINES 49
 
-// these next three sections come directly from the example code given by the instructor, excepts I changed the int buffer arrays to char*
+// these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char*
 // Buffer 1, shared resource between input thread and square-root thread
 char* buffer_1[SIZE];
 // Number of items in the buffer
@@ -80,7 +80,9 @@ This function doesn't perform any error checking.
 char* get_user_input(){
 	size_t len = 0;
 	ssize_t lineSize = 0;
-	ssize_t templineSize = 0;	
+	ssize_t templineSize = 0;
+	
+		
 	int max = 45;
 	int loop;
 
@@ -355,7 +357,7 @@ void *write_output(void *args)
 //      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
 //      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
 //      // if less than buffer put line in temp string to get next input
-//    //  printf("\nOutput: %s\n", line);
+     printf("\nOutput: %s\n", line3);
 //    }
     return NULL;
 }
