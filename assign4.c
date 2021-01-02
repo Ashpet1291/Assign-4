@@ -180,7 +180,7 @@ void *lineSeparator(void *args)
 {
     char* line = NULL;
     char* square_root1;
-    
+    char* n = '\n'
     char space = ' ';
     char newLine[] = "\n";
     
