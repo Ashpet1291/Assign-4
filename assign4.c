@@ -342,7 +342,7 @@ void *changePlusSign(void *args)
 void *write_output(void *args)
 {
     char* line3;
-    int size = 0;
+    int size3 = 0;
     
 //    for (int i = 0; i < NUM_ITEMS; i++)
 //    {
@@ -350,9 +350,9 @@ void *write_output(void *args)
       line3 = get_buff_3();
 //      
 //    
-      size = sizeof(line3);
+      size3 = sizeof(line3);
 //      
-      printf("%d", size);
+      printf("%d", size3);
 //      
 //      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
 //      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
