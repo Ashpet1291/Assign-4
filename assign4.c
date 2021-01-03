@@ -103,11 +103,11 @@ char* get_user_input(){
 /*
  Put an item in buff_1
 */
-void put_buff_1(char* line){
+void put_buff_1(char* tmpLine){
 	// Lock the mutex before putting the item in the buffer
 	pthread_mutex_lock(&mutex_1);
 	// Put the item in the buffer
-	buffer_1[prod_idx_1] = line;
+	buffer_1[prod_idx_1] = tmpLine;
 	// Increment the index where the next item will be put.
   	prod_idx_1 = prod_idx_1 + 1;
   	count_1++;
@@ -143,14 +143,14 @@ char* get_buff_1(){
   while (count_1 == 0)
     // Buffer is empty. Wait for the producer to signal that the buffer has data
     pthread_cond_wait(&full_1, &mutex_1);
-  char* line = buffer_1[con_idx_1];
+  char* line2 = buffer_1[con_idx_1];
   // Increment the index from which the item will be picked up
   con_idx_1 = con_idx_1 + 1;
   count_1--;
   // Unlock the mutex
   pthread_mutex_unlock(&mutex_1);
   // Return the item
-  return line;
+  return line2;
 }
 
 /*
@@ -344,21 +344,20 @@ void *write_output(void *args)
     char* line3;
     int size3 = 0;
     
-//    for (int i = 0; i < NUM_ITEMS; i++)
-//    {
-//      // get the item from buffer 3 to print
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+      // get the item from buffer 3 to print
       line3 = get_buff_3();
-//      
-//    
+   
       size3 = sizeof(line3);
-//      
+      
       printf("%d", size3);
-//      
-//      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
-//      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
-//      // if less than buffer put line in temp string to get next input
+      
+      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
+      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
+      // if less than buffer put line in temp string to get next input
      printf("\nOutput: %s\n", line3);
-//    }
+    }
     return NULL;
 }
 
