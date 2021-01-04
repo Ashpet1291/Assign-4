@@ -98,13 +98,13 @@ char* get_user_input(){
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
-	//getline auto adds newline
+	// getline auto adds newline
 	lineSize = lineSize-1;
 	
 	printf("linsize is: %d\n", lineSize);
 		
-	lineSize = lineSize-4;
-	printf("linsize after -4 is: %d\n", lineSize);
+//	lineSize = lineSize-4;
+//	printf("linsize after -4 is: %d\n", lineSize);
 	
 	if(strcmp(line, stopProcessing) == 0) {
 		
@@ -319,21 +319,20 @@ void *changePlusSign(void *args)
     	line = get_buff_2();
     	 	
     	int i = 0;
-    	size_t x;
-    	
+        	
     	// check if the line contins ++
     	char *ptr = strstr(line, plus);
 		// if this isn't null, ++ was found
 		if (ptr != NULL) 
 		{
-			int s = 0;
 			for(x=0; x < NUM_ITEMS; x++) {
 				
 				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
 					line[x] = carat;
 					
-					s = x;
+					// there were two plus signs being changed to a carat, decrease lineSize by 1
+					lineSize = lineSize -1;
 					
 					// shift everything else over one spot, because there is one less item
 					while(line[s+1] != '\0') {
@@ -360,6 +359,8 @@ void *write_output(void *args)
     char* line3;
     int size3 = 0;
     
+    char* TempLine = NULL;
+    
     for (int i = 0; i < NUM_ITEMS; i++)
     {
       // get the item from buffer 3 to print
@@ -374,8 +375,18 @@ void *write_output(void *args)
       // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
       // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
-     printf("\nOutput: %s\n", line3);
+      
+       if(lineSize >= MAX_CHAR) {
+			printf("\nOutput: %s\n", line3);
+	   }
+	   else {
+	   		strcat(TempLine, line3);
+	   }
     }
+    
+//    if(lineSize >= MAX_CHAR) {
+//	}
+    
     return NULL;
 }
 
