@@ -98,10 +98,19 @@ char* get_user_input(){
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
+	
+	
+	printf("linsize is: %d\n", lineSize);
+		
+	lineSize = lineSize-4;
+	printf("linsize after -4 is: %d\n", lineSize);
+	
 	if(strcmp(line, stopProcessing) == 0) {
 		
-		printf("linsize is: %d", lineSize);
-		printf("linsize after -4 is: %d", lineSize-4);
+//		printf("linsize is: %d", lineSize);
+//		
+//		lineSize = lineSize-4;
+//		printf("linsize after -4 is: %d", lineSize);
 		
 		stopProcess = 1;
 	}
@@ -357,9 +366,9 @@ void *write_output(void *args)
    
       size3 = strlen(line3);
       
-      printf("%d", size3);
+      printf("%d\n", size3);
       
-	  printf("%d", lineSize);
+	  printf("%d\n", lineSize);
       
       // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
       // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
