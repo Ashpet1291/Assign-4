@@ -32,7 +32,9 @@
 
 #define MAX_CHAR 80
 
-int stopProcessing = 0;
+int stopProcess = 0;
+
+char stopProcessing[4] = {'STOP'}
 
 // these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char pointer
 // Buffer 1, shared resource between input thread and line separator thread
@@ -101,7 +103,7 @@ char* get_user_input(){
 		printf("linsize is: %d", lineSize);
 		printf("linsize after -4 is: %d", lineSize-4);
 		
-		stopProcessing = 1;
+		stopProcess = 1;
 	}
 	
 	return line;
