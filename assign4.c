@@ -30,6 +30,10 @@
 
 #define MAX_LINES 49
 
+#define MAX_CHAR 80
+
+int stopProcessing = 0;
+
 // these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char pointer
 // Buffer 1, shared resource between input thread and line separator thread
 char* buffer_1[SIZE];
@@ -45,13 +49,13 @@ pthread_mutex_t mutex_1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_1 = PTHREAD_COND_INITIALIZER;
 
 
-// Buffer 2, shared resource between line separator thread and plus sign thread output thread
+// Buffer 2, shared resource between line separator thread and plus sign thread
 char* buffer_2[SIZE];
 // Number of items in the buffer
 int count_2 = 0;
-// Index where the square-root thread will put the next item
+// Index where the line separator thread will put the next item
 int prod_idx_2 = 0;
-// Index where the output thread will pick up the next item
+// Index where the plus sign thread will pick up the next item
 int con_idx_2 = 0;
 // Initialize the mutex for buffer 2
 pthread_mutex_t mutex_2 = PTHREAD_MUTEX_INITIALIZER;
@@ -59,11 +63,11 @@ pthread_mutex_t mutex_2 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_2 = PTHREAD_COND_INITIALIZER;
 
 
-// Buffer 3, shared resource between 3rd thread and output thread
+// Buffer 3, shared resource between plus sign thread and output thread
 char* buffer_3[SIZE];
 // Number of items in the buffer
 int count_3 = 0;
-// Index where the square-root thread will put the next item
+// Index where the splus sign thread will put the next item
 int prod_idx_3 = 0;
 // Index where the output thread will pick up the next item
 int con_idx_3 = 0;
@@ -73,29 +77,32 @@ pthread_mutex_t mutex_3 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 
+
+
+int lineSize = 0;
+
 /*
 Get input from the user.
 This function doesn't perform any error checking.
 */
 char* get_user_input(){
 	size_t len = 0;
-	ssize_t lineSize = 0;
-	ssize_t templineSize = 0;
-	
 		
-	int max = 45;
-	int loop;
 
-// while loop less than 45? or null? 
+	// while loop less than 45? or null? 
 	// holds the user input		
 	char* line = NULL;
 	
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
-//	
-//	if(strcmp(line, stopProcessing) == 0) {
-//		line = END_MARKER;
-//	}
+	
+	if(strcmp(line, stopProcessing) == 0) {
+		
+		printf("linsize is: %d", lineSize);
+		printf("linsize after -4 is: %d", lineSize-4);
+		
+		stopProcessing = 1;
+	}
 	
 	return line;
 }
@@ -181,7 +188,6 @@ Produce an item in the buffer shared with the plussign thread.
 void *lineSeparator(void *args)
 {
     char* line = NULL;
-    char* square_root1;
     char n = '\n';
     char space = ' ';
     char newLine[] = "\n";
@@ -216,8 +222,7 @@ void *lineSeparator(void *args)
 			   }   
     		}
 		}
-        square_root1 = line; //sqrt(item);
-        put_buff_2(square_root1);      ///////////////////////put line here
+           put_buff_2(line);      ///////////////////////put line here
     }
    
     return NULL;
@@ -318,7 +323,7 @@ void *changePlusSign(void *args)
 					
 					s = x;
 					
-					// shift everything else over one spot, because we lost one item in size
+					// shift everything else over one spot, because there is one less item
 					while(line[s+1] != '\0') {
 						line[s +1] = line[s+2];
 						s++;
@@ -327,8 +332,7 @@ void *changePlusSign(void *args)
 			}							
  		}
     // put this item in the next buffer for output        
-    put_buff_3(line); //////////////////////////put line here
-    }
+    put_buff_3(line);     }
     return NULL;
 }
 
@@ -349,9 +353,11 @@ void *write_output(void *args)
       // get the item from buffer 3 to print
       line3 = get_buff_3();
    
-      size3 = sizeof(line3);
+      size3 = strlen(line3);
       
       printf("%d", size3);
+      
+	  printf("%d", lineSize);
       
       // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
       // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
