@@ -34,7 +34,7 @@
 
 int stopProcess = 0;
 
-char stopProcessing[4] = {'STOP'}
+char stopProcessing[4] = {'S','T', 'O', 'P'};
 
 // these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char pointer
 // Buffer 1, shared resource between input thread and line separator thread
