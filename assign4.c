@@ -379,12 +379,12 @@ void *write_output(void *args)
       // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
       
-       if(lineSize >= MAX_CHAR) {
+//       if(lineSize >= MAX_CHAR) {
 			printf("\nOutput: %s\n", line3);
-	   }
-	   else {
-	   		strcat(TempLine, line3);
-	   }
+//	   }
+//	   else {
+//	   		strcat(TempLine, line3);
+//	   }
     }
     
 //    if(lineSize >= MAX_CHAR) {
