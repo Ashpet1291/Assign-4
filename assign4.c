@@ -98,7 +98,8 @@ char* get_user_input(){
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
-	
+	//getline auto adds newline
+	lineSize = lineSize-1;
 	
 	printf("linsize is: %d\n", lineSize);
 		
