@@ -369,7 +369,7 @@ void *write_output(void *args)
       // get the item from buffer 3 to print
       line3 = get_buff_3();
    
-      size3 = strlen(line3);
+      size3 = strlen(line3) -1;
       
       printf("%d\n", size3);
       
