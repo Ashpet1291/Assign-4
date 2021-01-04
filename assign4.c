@@ -313,6 +313,9 @@ void *changePlusSign(void *args)
     char carat = '^';
     char* success =NULL;
     
+    int x;
+    int s;
+    
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	// get the item from buff 2
