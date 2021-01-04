@@ -30,14 +30,14 @@
 
 #define MAX_LINES 49
 
-// these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char*
-// Buffer 1, shared resource between input thread and square-root thread
+// these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char pointer
+// Buffer 1, shared resource between input thread and line separator thread
 char* buffer_1[SIZE];
 // Number of items in the buffer
 int count_1 = 0;
 // Index where the input thread will put the next item
 int prod_idx_1 = 0;
-// Index where the square-root thread will pick up the next item
+// Index where the line-separator thread will pick up the next item
 int con_idx_1 = 0;
 // Initialize the mutex for buffer 1
 pthread_mutex_t mutex_1 = PTHREAD_MUTEX_INITIALIZER;
@@ -45,7 +45,7 @@ pthread_mutex_t mutex_1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_1 = PTHREAD_COND_INITIALIZER;
 
 
-// Buffer 2, shared resource between square root thread and output thread
+// Buffer 2, shared resource between line separator thread and plus sign thread output thread
 char* buffer_2[SIZE];
 // Number of items in the buffer
 int count_2 = 0;
