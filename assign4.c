@@ -12,7 +12,6 @@
 //gcc -std=gnu99 -pthread -o line_processor assign4.c
 
 
-
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,8 +24,11 @@
 // Size of the buffers
 #define SIZE 1100
 
-// Number of items that will be produced. This number is less than the size of the buffer. Hence, we can model the buffer as being unbounded.
+// Number of items that will be produced. This number is less than the size of the buffer. 
+// Hence, we can model the buffer as being unbounded.
 #define NUM_ITEMS 1000 //80
+
+#define END_MARKER -1
 
 #define MAX_LINES 49
 
@@ -34,7 +36,9 @@
 
 int stopProcess = 0;
 
-char stopProcessing[4] = {'S','T', 'O', 'P'};
+int lineCount = 0;
+
+char stopProcessing[] = {'S','T', 'O', 'P'};
 
 // these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char pointer
 // Buffer 1, shared resource between input thread and line separator thread
@@ -80,8 +84,8 @@ pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 
 
-
-int lineSize = 0;
+//// maybe don't initialize to zero?
+int lineSize;
 
 /*
 Get input from the user.
@@ -94,30 +98,32 @@ char* get_user_input(){
 	// while loop less than 45? or null? 
 	// holds the user input		
 	char* line = NULL;
-	
+		
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
 	// getline auto adds newline
 	lineSize = lineSize-1;
 	
-	printf("linsize is: %d\n", lineSize);
+	//printf("linsize is: %d\n", lineSize);
 		
 //	lineSize = lineSize-4;
 //	printf("linsize after -4 is: %d\n", lineSize);
 	
-	if(strcmp(line, stopProcessing) == 0) {
-		
-//		printf("linsize is: %d", lineSize);
+//	if(strstr(line, "STOP") == 0) {
 //		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-		
-		stopProcess = 1;
-	}
+////		printf("linsize is: %d", lineSize);
+////		
+////		lineSize = lineSize-4;
+////		printf("linsize after -4 is: %d", lineSize);
+//		
+//		stopProcess = 1;
+//	}
 	
 	return line;
 }
+
+
 
 /*
  Put an item in buff_1
@@ -143,10 +149,20 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
-    for (int i = 0; i < NUM_ITEMS; i++)
+    for (int i = 0; i < MAX_LINES; i++)
     {
       // Get the user input
       char* line = get_user_input();
+      
+      if(strstr(line, "STOP") == 0) {
+		
+//		printf("linsize is: %d", lineSize);
+//		
+//		lineSize = lineSize-4;
+//		printf("linsize after -4 is: %d", lineSize);
+		
+		stopProcess = 1;
+	}
       // put it in the first buffer
       put_buff_1(line);
     }
@@ -200,7 +216,7 @@ Produce an item in the buffer shared with the plussign thread.
 void *lineSeparator(void *args)
 {
     char* line = NULL;
-    char n = '\n';
+    
     char space = ' ';
     char newLine[] = "\n";
     
@@ -208,7 +224,7 @@ void *lineSeparator(void *args)
     {
     	// get item from buffer 1- input
     	line = get_buff_1();   	   	
-    	int i = 0;
+ //   	int i = 0;
     	size_t y;
     	
     	// check if the line contins a newline
@@ -220,10 +236,9 @@ void *lineSeparator(void *args)
 			for(y=0; y < NUM_ITEMS; y++) {
 				
 				// if the spot in the word contains \n, change it to a space
-				if(line[y] == n) {
-				
+				if(line[y] == '\n') {
 					
-				//	strcpy()
+				//	strcpy(, space)
 					line[y] = space;									
 //					r = y;
 //					// shift everything else over one spot, because we lost one item in size
@@ -238,6 +253,27 @@ void *lineSeparator(void *args)
     }
    
     return NULL;
+}
+
+
+
+/*
+Get the next item from buffer 2
+*/
+char* get_buff_2(){
+  // Lock the mutex before checking if the buffer has data
+  pthread_mutex_lock(&mutex_2);
+  while (count_2 == 0)
+    // Buffer is empty. Wait for the producer to signal that the buffer has data
+    pthread_cond_wait(&full_2, &mutex_2);
+  char* line = buffer_2[con_idx_2];
+  // Increment the index from which the item will be picked up
+  con_idx_2 = con_idx_2 + 1;
+  count_2--;
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_2);
+  // Return the item
+  return line;
 }
 
 
@@ -278,25 +314,6 @@ char* get_buff_3(){
   return line;
 }
 
-
-/*
-Get the next item from buffer 2
-*/
-char* get_buff_2(){
-  // Lock the mutex before checking if the buffer has data
-  pthread_mutex_lock(&mutex_2);
-  while (count_2 == 0)
-    // Buffer is empty. Wait for the producer to signal that the buffer has data
-    pthread_cond_wait(&full_2, &mutex_2);
-  char* line = buffer_2[con_idx_2];
-  // Increment the index from which the item will be picked up
-  con_idx_2 = con_idx_2 + 1;
-  count_2--;
-  // Unlock the mutex
-  pthread_mutex_unlock(&mutex_2);
-  // Return the item
-  return line;
-}
 
 
 /*
@@ -339,7 +356,7 @@ void *changePlusSign(void *args)
 					
 					// shift everything else over one spot, because there is one less item
 					while(line[s+1] != '\0') {
-						line[s +1] = line[s+2];
+						line[s+1] = line[s+2];
 						s++;
 					}
 			   }   
@@ -362,24 +379,50 @@ void *write_output(void *args)
     char* line3;
     int size3 = 0;
     
+    
     char* TempLine = NULL;
     
-    for (int i = 0; i < NUM_ITEMS; i++)
+    for (int i = 0; i < MAX_LINES; i++)
     {
       // get the item from buffer 3 to print
-      line3 = get_buff_3();
+      	line3 = get_buff_3();
    
-      size3 = strlen(line3) -1;
+//      size3 = strlen(line3) -1;      
+//      printf("%d\n", size3);
       
-      printf("%d\n", size3);
+	  	printf("%d\n", lineSize);
       
-	  printf("%d\n", lineSize);
-      
-      // need to make if loop to find out size of line, if the size is mod 80, print 80 chars and a newline
-      // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
+       // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
       
 //       if(lineSize >= MAX_CHAR) {
+
+//				if((lineSize % MAX_CHAR) == 0) {
+//					while(line3 != NULL) {
+//						printf("%.*s\n", MAX_CHAR, line3);
+//						line3 = line3 + MAX_CHAR;
+//					}
+//					
+//				//	printf("Here are the first 5 characters: %.*s\n", 5, mystr);
+//				} 
+//				else {
+/////////possibly just try this-this may work instead if the extra if statement
+///////////// but maybe copy it out of the buffer loop?------nope needs to be in loop because it prints as soon as 80 chars
+//////////// however need to stop recieving if recieved STOP-----maybe that goes into loop of getbuff and or it's when reading in stuff
+//					while(line3 != NULL) {
+//						if(lineSize >= MAX_CHAR)\
+//							// print 80 char line, followed by a newline
+//							printf("%.*s\n", MAX_CHAR, line3);
+//							// get rid of the 80 char line we just printed
+//							line3 = line3 + MAX_CHAR;
+// 							// minus 80 from size as we just printed 80 chars
+//							lineSize = lineSize - MAX_CHAR;
+//					}
+//				}
+			// if its mod 80 == 0/ divisible by 80 --- make another loop- while not null, then print 80 chars newline 80 chars 
+			
+			//---else----maybe could just do this instead---less code-- print 80 chars- and a newline- check if remainder is less than or == to 80--if so exit- 
+			//otherwise print 80 chars and newline-and check again 
 			printf("\nOutput: %s\n", line3);
 //	   }
 //	   else {
@@ -388,6 +431,26 @@ void *write_output(void *args)
     }
     
 //    if(lineSize >= MAX_CHAR) {
+	
+//		while(line3 != NULL) {
+//			count = count + 1;
+//		}
+
+// remainder = linesize-count
+// if remainder % 80 == 0- print line then a newline
+//
+//		for(x=0; x < NUM_ITEMS; x++) {
+//				
+//			if(lineSize % MAX_CHAR == 0) {
+//				printf("%s", line3[x]);
+//			}
+//			else {
+//				printf("%s", line3[x]);
+//				count = count + 1;
+//			}
+//			printf("%s", line3[x]);
+//			count = count + 1;
+//
 //	}
     
     return NULL;
