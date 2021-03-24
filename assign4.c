@@ -141,7 +141,13 @@ void *get_input(void *args)
     {
       // Get the user input
       char* line = get_user_input();
-
+	  char* point = strstr(line, "STOP");
+	  
+//	  (strstr(line, "STOP") == 0)
+		
+      while(point != NULL) {
+      	   put_buff_1(line);
+	  }
       // put it in the first buffer
       put_buff_1(line);
     }
@@ -321,7 +327,7 @@ void *changePlusSign(void *args)
 //			}							
 // 		}
 //    // put this item in the next buffer for output        
-    put_buff_3(line);     
+    	put_buff_3(line);     
 	}
     return NULL;
 }
