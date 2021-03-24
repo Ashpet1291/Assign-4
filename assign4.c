@@ -149,7 +149,7 @@ void *get_input(void *args)
       	   put_buff_1(line);
 	  }
       // put it in the first buffer
-      put_buff_1(line);
+//      put_buff_1(line);
     }
     return NULL;
 }
