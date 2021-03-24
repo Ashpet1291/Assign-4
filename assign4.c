@@ -12,6 +12,7 @@
 //gcc -std=gnu99 -pthread -o line_processor assign4.c
 
 
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,19 +25,14 @@
 // Size of the buffers
 #define SIZE 1100
 
-// Number of items that will be produced. This number is less than the size of the buffer. 
-// Hence, we can model the buffer as being unbounded.
+// Number of items that will be produced. This number is less than the size of the buffer. Hence, we can model the buffer as being unbounded.
 #define NUM_ITEMS 1000 //80
-
-#define END_MARKER -1
 
 #define MAX_LINES 49
 
 #define MAX_CHAR 80
 
 int stopProcess = 0;
-
-int lineCount = 0;
 
 char stopProcessing[] = {'S','T', 'O', 'P'};
 
@@ -215,6 +211,7 @@ void *lineSeparator(void *args)
 {
     char* line = NULL;
     
+   // char n = '\n';
     char space = ' ';
     char newLine[] = "\n";
     
@@ -222,7 +219,7 @@ void *lineSeparator(void *args)
     {
     	// get item from buffer 1- input
     	line = get_buff_1();   	   	
- //   	int i = 0;
+    	int i = 0;
     	size_t y;
     	
     	// check if the line contins a newline
@@ -251,27 +248,6 @@ void *lineSeparator(void *args)
     }
    
     return NULL;
-}
-
-
-
-/*
-Get the next item from buffer 2
-*/
-char* get_buff_2(){
-  // Lock the mutex before checking if the buffer has data
-  pthread_mutex_lock(&mutex_2);
-  while (count_2 == 0)
-    // Buffer is empty. Wait for the producer to signal that the buffer has data
-    pthread_cond_wait(&full_2, &mutex_2);
-  char* line = buffer_2[con_idx_2];
-  // Increment the index from which the item will be picked up
-  con_idx_2 = con_idx_2 + 1;
-  count_2--;
-  // Unlock the mutex
-  pthread_mutex_unlock(&mutex_2);
-  // Return the item
-  return line;
 }
 
 
@@ -312,6 +288,25 @@ char* get_buff_3(){
   return line;
 }
 
+
+/*
+Get the next item from buffer 2
+*/
+char* get_buff_2(){
+  // Lock the mutex before checking if the buffer has data
+  pthread_mutex_lock(&mutex_2);
+  while (count_2 == 0)
+    // Buffer is empty. Wait for the producer to signal that the buffer has data
+    pthread_cond_wait(&full_2, &mutex_2);
+  char* line = buffer_2[con_idx_2];
+  // Increment the index from which the item will be picked up
+  con_idx_2 = con_idx_2 + 1;
+  count_2--;
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_2);
+  // Return the item
+  return line;
+}
 
 
 /*
