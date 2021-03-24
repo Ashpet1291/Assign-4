@@ -367,14 +367,17 @@ void *write_output(void *args)
       // get the item from buffer 3 to print
       	line3 = get_buff_3();
       	
-      	if(lineSize >= MAX_CHAR) {
-      		
-      		for(int i=0; i <= MAX_CHAR; i++) {
-      			    tempString[i] = line3[i];
-			  }
-      		// need to loop through pointer while less than or equal to 80  and put that in a string, then print the string with a newline...put the rest of the incoming string in a string an check if 8
-      		printf("\nOutput: %s\n", tempString);
-		  }
+//      	if(lineSize >= MAX_CHAR) {
+//      		
+//      		for(int i=0; i <= MAX_CHAR; i++) {
+//      			    tempString[i] = line3[i];
+//			  }
+//      		// need to loop through pointer while less than or equal to 80  and put that in a string, then print the string with a newline...put the rest of the incoming string in a string an check if 8
+//      		printf("\nOutput: %s\n", tempString);
+//		  }
+
+
+	    printf("\nOutput: %s\n", line3);
       	
       	// lineSize
       	//can do check if stop process == 1, then stop and break
