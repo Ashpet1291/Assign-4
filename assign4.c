@@ -105,7 +105,7 @@ char* get_user_input(){
 //		printf("linsize is: %d", lineSize);		
 //		lineSize = lineSize-4;
 //		printf("linsize after -4 is: %d", lineSize);
-		
+//		break;
 		stopProcess = 1;
 	}
 
@@ -141,6 +141,15 @@ void *get_input(void *args)
       // Get the user input
       char* line = get_user_input();
 	  char* point = strstr(line, "STOP");
+	  
+	  	if(strstr(line, "STOP") == 0) {
+		
+//		printf("linsize is: %d", lineSize);		
+//		lineSize = lineSize-4;
+//		printf("linsize after -4 is: %d", lineSize);
+		break;
+		stopProcess = 1;
+	}
 	  
 //	  (strstr(line, "STOP") == 0)
 		
