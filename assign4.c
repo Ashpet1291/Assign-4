@@ -377,16 +377,16 @@ void *write_output(void *args)
 //    		if(stopProcess != 1) {
 
 
-	if(strstr(line3, "STOP") == 0) {
-		
-//		printf("linsize is: %d", lineSize);		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-			
-		printf("Output: %s\n", line3);
-		break;
-		stopProcess = 1;
-	}
+//	if(strstr(line3, "STOP") == 0) {
+//		
+////		printf("linsize is: %d", lineSize);		
+////		lineSize = lineSize-4;
+////		printf("linsize after -4 is: %d", lineSize);
+//			
+//		printf("Output: %s\n", line3);
+//		break;
+//		stopProcess = 1;
+//	}
 //    				
 		//	printf("Output: %s\n", line3);
 //			}
