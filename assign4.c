@@ -211,7 +211,7 @@ void *lineSeparator(void *args)
     char* line = NULL;
 
     char space = ' ';
-    char newLine[] = '\n';
+    char newLine[] = "\n";
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
