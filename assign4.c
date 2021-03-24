@@ -382,10 +382,12 @@ void *write_output(void *args)
     
     char* TempLine = NULL;
     
-    for (int i = 0; i < NUM_ITEMS; i++)
-    {
-      // get the item from buffer 3 to print
+   
+      // get the item from buffer 3 to print   
+      while(line3 != NULL) {
       	line3 = get_buff_3();
+	  }
+   //   	line3 = get_buff_3();
    
 //      size3 = strlen(line3) -1;      
 //      printf("%d\n", size3);
@@ -428,7 +430,6 @@ void *write_output(void *args)
 //	   else {
 //	   		strcat(TempLine, line3);
 //	   }
-    }
     
 //    if(lineSize >= MAX_CHAR) {
 	
