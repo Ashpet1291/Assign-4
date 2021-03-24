@@ -101,14 +101,14 @@ char* get_user_input(){
 	
 	//printf("linsize is: %d\n", lineSize);
 	
-	if(strstr(line, "STOP") == 0) {
-		
-//		printf("linsize is: %d", lineSize);		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-		
-		stopProcess = 1;
-	}
+//	if(strstr(line, "STOP") == 0) {
+//		
+////		printf("linsize is: %d", lineSize);		
+////		lineSize = lineSize-4;
+////		printf("linsize after -4 is: %d", lineSize);
+//		
+//		stopProcess = 1;
+//	}
 	
 	return line;
 }
@@ -365,6 +365,15 @@ void *write_output(void *args)
     for (int i = 0; i < MAX_LINES; i++)
     {
     	while(count <= MAX_LINES) {
+    		
+    		if(strstr(line3, "STOP") == 0) {
+		
+//		printf("linsize is: %d", lineSize);		
+//		lineSize = lineSize-4;
+//		printf("linsize after -4 is: %d", lineSize);
+		
+				stopProcess = 1;
+			}
     	
 		
     		line3 = get_buff_3();
