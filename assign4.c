@@ -93,7 +93,7 @@ char* get_user_input(){
 	size_t len = 0;
 		
 	// holds the user input		
-	char* line[] = NULL;
+	char* line = NULL;
 	
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
@@ -117,7 +117,7 @@ char* get_user_input(){
 		stopProcess = 1;
 	}
 
-	return line;
+	return *line;
 }
 
 /*
