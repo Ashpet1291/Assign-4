@@ -364,12 +364,22 @@ void *write_output(void *args)
     
     for (int i = 0; i < MAX_LINES; i++)
     {
+    	while(count <= MAX_LINES) {
     	
-    	while(stopProcess != 1) {
+		
     		line3 = get_buff_3();
+    		
+    		if(stopProcess != 1) {
+    				
+				printf("\nOutput: %s\n", line3);
+			}
 			
-			printf("\nOutput: %s\n", line3);	
+    		
 		}
+//    		line3 = get_buff_3();
+////			stopProcess
+//			printf("\nOutput: %s\n", line3);	
+		
       // get the item from buffer 3 to print
 //      	line3 = get_buff_3();
       	
