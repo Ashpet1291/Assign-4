@@ -220,6 +220,32 @@ void *lineSeparator(void *args)
     	int i = 0;
     	int y = 0;
     	int r = 0;
+    	     	
+    	// check if the line contins ++
+    	char *ptr = strstr(line, newline);
+		// if this isn't null, ++ was found
+		if (ptr != NULL) 
+		{
+			for(y=0; y < NUM_ITEMS; y++) {
+				
+				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+				if((line[y] == newLine){				
+					line[y] = space;
+					
+//					r=y;
+//					// there were two plus signs being changed to a carat, decrease lineSize by 1
+//					lineSize = lineSize -1;
+//					
+//					// shift everything else over one spot, because there is one less item
+//					while(line[s+1] != '\0') {
+//						line[s+1] = line[s+2];
+//						s++;
+//					}
+			   }   
+			}							
+ 		}
+    // put this item in the next buffer for output        
+    	put_buff_3(line); 
     	
 		// if this isn't null, newline-\n was found
 //		if (ptr != NULL) 
