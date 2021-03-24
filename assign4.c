@@ -93,7 +93,9 @@ char* get_user_input(){
 	// holds the user input		
 	char* line = NULL;
 	
-	while(strstr(line, stopProcessing)== 0) {
+	char* po = strstr(line, stopProcessing);
+	
+	while(po == NULL) {
 		lineSize = getline(&line, &len, stdin);
 	
 		// getline auto adds newline
