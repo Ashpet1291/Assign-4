@@ -217,29 +217,30 @@ void *lineSeparator(void *args)
     	line = get_buff_1();   	   	
     	int i = 0;
     	int y;
+    	int r = 0;
     	
-//    	// check if the line contins a newline
-//    	char *ptr = strstr(line, newLine);
-//		// if this isn't null, newline-\n was found
-//		if (ptr != NULL) 
-//		{
-//			int r = 0;
-//			for(y=0; y < NUM_ITEMS; y++) {
-//				
-//				// if the spot in the word contains \n, change it to a space
-//				if(line[y] == '\n') {
-//					
-//				//	strcpy(, space)
-//					line[y] = space;									
-////					r = y;
-////					// shift everything else over one spot, because we lost one item in size
-////					while(line[r+1] != '\0') {
-////						line[r +1] = line[r+2];
-////						r++;
-////					}
-//			   }   
-//    		}
-//		}
+    	// check if the line contins a newline
+    	char *ptr = strstr(line, newLine);
+		// if this isn't null, newline-\n was found
+		if (ptr != NULL) 
+		{
+			int r = 0;
+			for(y=0; y < NUM_ITEMS; y++) {
+				
+				// if the spot in the word contains \n, change it to a space
+				if(line[y] == '\n') {
+					
+				//	strcpy(, space)
+					line[y] = space;									
+//					r = y;
+//					// shift everything else over one spot, because we lost one item in size
+//					while(line[r+1] != '\0') {
+//						line[r +1] = line[r+2];
+//						r++;
+//					}
+			   }   
+    		}
+		}
            put_buff_2(line);      ///////////////////////put line here
     }
    
@@ -338,6 +339,7 @@ void *changePlusSign(void *args)
 	}
     return NULL;
 }
+
 
 /*
 Get the next item from buffer 3
