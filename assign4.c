@@ -8,7 +8,7 @@
 // tutorialspoint.com
 
 
-// to run the code
+// to build the code
 //gcc -std=gnu99 -pthread -o line_processor assign4.c
 
 
@@ -93,7 +93,7 @@ char* get_user_input(){
 	size_t len = 0;
 		
 	// holds the user input		
-	char* line = NULL;
+	char* line[] = NULL;
 	
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
