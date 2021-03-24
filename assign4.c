@@ -93,22 +93,28 @@ char* get_user_input(){
 	// holds the user input		
 	char* line = NULL;
 	
-	// get input from stdIn
-	lineSize = getline(&line, &len, stdin);
+	while(strstr(line, stopProcessing)== 0) {
+		lineSize = getline(&line, &len, stdin);
 	
-	// getline auto adds newline
-	lineSize = lineSize-1;
-	
-	//printf("linsize is: %d\n", lineSize);
-	
-	if(strstr(line, "STOP") == 0) {
-		
-//		printf("linsize is: %d", lineSize);		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-		
-		stopProcess = 1;
+		// getline auto adds newline
+		lineSize = lineSize-1;
 	}
+	// get input from stdIn
+//	lineSize = getline(&line, &len, stdin);
+//	
+//	// getline auto adds newline
+//	lineSize = lineSize-1;
+//	
+//	//printf("linsize is: %d\n", lineSize);
+//	
+//	if(strstr(line, "STOP") == 0) {
+//		
+////		printf("linsize is: %d", lineSize);		
+////		lineSize = lineSize-4;
+////		printf("linsize after -4 is: %d", lineSize);
+//		
+//		stopProcess = 1;
+//	}
 	
 	return line;
 }
