@@ -364,16 +364,16 @@ void *write_output(void *args)
     
     for (int i = 0; i < MAX_LINES; i++)
     {
-    	while(count <= MAX_LINES) {
-    	
-		
+//    	while(count <= MAX_LINES) {
+//    	
+//		
     		line3 = get_buff_3();
-    		
-    		if(stopProcess != 1) {
-    				
-				printf("\nOutput: %s\n", line3);
-			}
-			count++;
+//    		
+//    		if(stopProcess != 1) {
+//    				
+			printf("\nOutput: %s\n", line3);
+//			}
+//			count++;
 			
     		
 		}
