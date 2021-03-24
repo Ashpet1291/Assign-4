@@ -100,7 +100,7 @@ char* get_user_input(){
 	lineSize = lineSize-1;
 	
 	//printf("linsize is: %d\n", lineSize);
-	strstr(line, "STOP") == 0) {
+	if(strstr(line, "STOP") == 0) {
 		
 //		printf("linsize is: %d", lineSize);		
 //		lineSize = lineSize-4;
