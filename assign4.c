@@ -392,7 +392,7 @@ void *write_output(void *args)
       
 	  	printf("%d\n", lineSize);
 	  	
-	  	strcat(line3, Templine);
+	  	strcat(line3, TempLine);
       
        // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
