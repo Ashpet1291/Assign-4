@@ -366,7 +366,9 @@ void *write_output(void *args)
     {
     	
     	while(stopProcess != 1) {
-    		line3 = get_buff_3();	
+    		line3 = get_buff_3();
+			
+			printf("\nOutput: %s\n", line3);	
 		}
       // get the item from buffer 3 to print
 //      	line3 = get_buff_3();
@@ -381,7 +383,7 @@ void *write_output(void *args)
 //		  }
 
 
-	    printf("\nOutput: %s\n", line3);
+//	    printf("\nOutput: %s\n", line3);
       	
       	// lineSize
       	//can do check if stop process == 1, then stop and break
