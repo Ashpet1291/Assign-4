@@ -140,9 +140,7 @@ void *get_input(void *args)
     {
       // Get the user input
       char* line = get_user_input();
-	  char* point = strstr(line, "STOP");
-	  
-	  
+//	  char* point = strstr(line, "STOP");	  
 //	  (strstr(line, "STOP") == 0)
 		
 //      while(point != NULL) {
@@ -390,11 +388,17 @@ void *write_output(void *args)
 		stopProcess = 1;
 	}
 //    				
-			printf("Output: %s\n", line3);
+		//	printf("Output: %s\n", line3);
 //			}
+			
+
 //			count++;
 			
     		
+		}
+		
+		for (int i = 0; i < MAX_LINES; i++) {
+			printf("Output: %c", line3[i]);
 		}
 //    		line3 = get_buff_3();
 ////			stopProcess
