@@ -219,29 +219,29 @@ void *lineSeparator(void *args)
     	int y = 0;
     	int r = 0;
     	
-    	// check if the line contins a newline
-    	char *ptr = strstr(line, newLine);
-    	
-    	if (ptr != NULL) 
-		{
-    	for(y=0; y < NUM_ITEMS; y++) {
-				
-			// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
-			if(line[y] == '\n'){				
-				line[y] = space;
-				
-//				r=y;
-//				// there were two plus signs being changed to a carat, decrease lineSize by 1
-//				lineSize = lineSize -1;
+//    	// check if the line contins a newline
+//    	char *ptr = strstr(line, newLine);
+//    	
+//    	if (ptr != NULL) 
+//		{
+//    	for(y=0; y < NUM_ITEMS; y++) {
 //				
-//				// shift everything else over one spot, because there is one less item
-//				while(line[r+1] != '\0') {
-//					line[r+1] = line[r+2];
-//					r++;
-//				}
-	        }   
-		}
-	}
+//			// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+//			if(line[y] == '\n'){				
+//				line[y] = space;
+//				
+////				r=y;
+////				// there were two plus signs being changed to a carat, decrease lineSize by 1
+////				lineSize = lineSize -1;
+////				
+////				// shift everything else over one spot, because there is one less item
+////				while(line[r+1] != '\0') {
+////					line[r+1] = line[r+2];
+////					r++;
+////				}
+//	        }   
+//		}
+//	}
 		// if this isn't null, newline-\n was found
 //		if (ptr != NULL) 
 //		{
