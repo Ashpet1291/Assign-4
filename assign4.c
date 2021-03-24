@@ -108,14 +108,14 @@ char* get_user_input(){
 //	}
 	
 	//printf("linsize is: %d\n", lineSize);
-	if(strstr(line, "STOP") == 0) {
-		
-//		printf("linsize is: %d", lineSize);		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-//		break;
+//	if(strstr(line, "STOP") == 0) {
+//		
+////		printf("linsize is: %d", lineSize);		
+////		lineSize = lineSize-4;
+////		printf("linsize after -4 is: %d", lineSize);
+////		break;
 //		stopProcess = 1;
-	}
+//	}
 
 	return line;
 }
@@ -144,7 +144,7 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
-    for (int i = 0; i < MAX_LINES; i++)
+    for (int i = 0; i < NUM_ITEMS; i++)
     {
       // Get the user input
       char* line = get_user_input();
