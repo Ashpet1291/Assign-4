@@ -391,8 +391,6 @@ void *write_output(void *args)
 //			  }
 //      		// need to loop through pointer while less than or equal to 80  and put that in a string, then print the string with a newline...put the rest of the incoming string in a string an check if 8
 //      		printf("\nOutput: %s\n", tempString);
-//		  }
-
 
 //	    printf("\nOutput: %s\n", line3);
       	
@@ -411,7 +409,7 @@ void *write_output(void *args)
       	
 //   		printf("\nOutput: %s\n", line3);
 
-    }  
+  
 }
 
 
