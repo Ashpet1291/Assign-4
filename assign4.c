@@ -321,6 +321,7 @@ void *changePlusSign(void *args)
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
 					line[x] = carat;
 					
+					s=x;
 					// there were two plus signs being changed to a carat, decrease lineSize by 1
 					lineSize = lineSize -1;
 					
