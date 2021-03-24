@@ -144,7 +144,9 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
-    for (int i = 0; i < NUM_ITEMS; i++)
+	//cahnged NUM_ITEMS to MAXLINES
+//    for (int i = 0; i < NUM_ITEMS; i++)
+    for (int i = 0; i < MAX_LINES; i++)
     {
       // Get the user input
       char* line = get_user_input();
