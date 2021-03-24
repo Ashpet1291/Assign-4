@@ -103,7 +103,7 @@ char* get_user_input(){
     /* Increment our line count */
 //    	line_count++;
     	lineSize = getline(&line, &len, stdin);
-    	strcat(tempLine, *line);
+    	strcat(tempLine, line);
     	
 	}
 	
