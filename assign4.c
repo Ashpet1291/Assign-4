@@ -82,6 +82,8 @@ pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 size_t lineSize = 0;
 
+char tempLine[NUM_ITEMS];
+
 /*
 Get input from the user.
 This function doesn't perform any error checking.
@@ -96,8 +98,14 @@ char* get_user_input(){
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
-	// getline auto adds newline
-	lineSize = lineSize-1;
+	 while (lineSize >= 0)
+    {
+    /* Increment our line count */
+//    	line_count++;
+    	lineSize = getline(&line, &len, stdin);
+    	strcat(tempLine, *line);
+    	
+	}
 	
 	//printf("linsize is: %d\n", lineSize);
 	if(strstr(line, "STOP") == 0) {
@@ -109,7 +117,7 @@ char* get_user_input(){
 		stopProcess = 1;
 	}
 
-	return line;
+	return tempLine;
 }
 
 /*
@@ -434,7 +442,7 @@ void *write_output(void *args)
       	
 //   		printf("\nOutput: %s\n", line3);
 
-  
+  return NULL;
 }
 
 
