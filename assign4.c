@@ -150,7 +150,7 @@ void *get_input(void *args)
 //	  }
 //      // put it in the first buffer
       put_buff_1(line);
-//    }
+    }
     return NULL;
 }
 
