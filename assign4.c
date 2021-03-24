@@ -222,14 +222,14 @@ void *lineSeparator(void *args)
     	int r = 0;
     	     	
     	// check if the line contins ++
-    	char *ptr = strstr(line, newline);
+    	char *ptr = strstr(line, newLine);
 		// if this isn't null, ++ was found
 		if (ptr != NULL) 
 		{
 			for(y=0; y < NUM_ITEMS; y++) {
 				
 				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
-				if((line[y] == newLine){				
+				if(line[y] == newLine){				
 					line[y] = space;
 					
 //					r=y;
@@ -244,8 +244,7 @@ void *lineSeparator(void *args)
 			   }   
 			}							
  		}
-    // put this item in the next buffer for output        
-    	put_buff_3(line); 
+    // put this item in the next buffer for output
     	
 		// if this isn't null, newline-\n was found
 //		if (ptr != NULL) 
