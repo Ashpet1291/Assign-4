@@ -364,8 +364,12 @@ void *write_output(void *args)
     
     for (int i = 0; i < MAX_LINES; i++)
     {
+    	
+    	while(stopProcess != 1) {
+    		line3 = get_buff_3();	
+		}
       // get the item from buffer 3 to print
-      	line3 = get_buff_3();
+//      	line3 = get_buff_3();
       	
 //      	if(lineSize >= MAX_CHAR) {
 //      		
