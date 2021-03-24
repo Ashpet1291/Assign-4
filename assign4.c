@@ -145,12 +145,12 @@ void *get_input(void *args)
 	  
 //	  (strstr(line, "STOP") == 0)
 		
-      while(point != NULL) {
-      	   put_buff_1(line);
-	  }
-      // put it in the first buffer
-//      put_buff_1(line);
-    }
+//      while(point != NULL) {
+//      	   put_buff_1(line);
+//	  }
+//      // put it in the first buffer
+      put_buff_1(line);
+//    }
     return NULL;
 }
 
