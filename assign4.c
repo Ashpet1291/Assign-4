@@ -373,6 +373,7 @@ void *write_output(void *args)
     				
 				printf("\nOutput: %s\n", line3);
 			}
+			count++;
 			
     		
 		}
