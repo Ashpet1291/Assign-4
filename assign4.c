@@ -382,10 +382,13 @@ void *write_output(void *args)
     
     char* TempLine = NULL;
     
+   	  line3 = get_buff_3();
+      printf("\nOutput: %s\n", line3);
    
       // get the item from buffer 3 to print   
       while(line3 != NULL) {
       	line3 = get_buff_3();
+      	printf("\nOutput: %s\n", line3);
 	  }
    //   	line3 = get_buff_3();
    
@@ -425,7 +428,7 @@ void *write_output(void *args)
 			
 			//---else----maybe could just do this instead---less code-- print 80 chars- and a newline- check if remainder is less than or == to 80--if so exit- 
 			//otherwise print 80 chars and newline-and check again 
-			printf("\nOutput: %s\n", line3);
+//			printf("\nOutput: %s\n", line3);
 //	   }
 //	   else {
 //	   		strcat(TempLine, line3);
