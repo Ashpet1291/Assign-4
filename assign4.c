@@ -222,6 +222,8 @@ void *lineSeparator(void *args)
     	// check if the line contins a newline
     	char *ptr = strstr(line, newLine);
     	
+    	if (ptr != NULL) 
+		{
     	for(y=0; y < NUM_ITEMS; y++) {
 				
 			// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
@@ -239,6 +241,7 @@ void *lineSeparator(void *args)
 //				}
 	        }   
 		}
+	}
 		// if this isn't null, newline-\n was found
 //		if (ptr != NULL) 
 //		{
