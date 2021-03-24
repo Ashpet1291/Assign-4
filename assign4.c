@@ -8,7 +8,7 @@
 // tutorialspoint.com
 
 
-// to build the code
+// to run the code
 //gcc -std=gnu99 -pthread -o line_processor assign4.c
 
 
@@ -98,7 +98,7 @@ char* get_user_input(){
 	// while loop less than 45? or null? 
 	// holds the user input		
 	char* line = NULL;
-		
+	
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
@@ -110,20 +110,18 @@ char* get_user_input(){
 //	lineSize = lineSize-4;
 //	printf("linsize after -4 is: %d\n", lineSize);
 	
-//	if(strstr(line, "STOP") == 0) {
+	if(strstr(line, "STOP") == 0) {
+		
+//		printf("linsize is: %d", lineSize);
 //		
-////		printf("linsize is: %d", lineSize);
-////		
-////		lineSize = lineSize-4;
-////		printf("linsize after -4 is: %d", lineSize);
-//		
-//		stopProcess = 1;
-//	}
+//		lineSize = lineSize-4;
+//		printf("linsize after -4 is: %d", lineSize);
+		
+		stopProcess = 1;
+	}
 	
 	return line;
 }
-
-
 
 /*
  Put an item in buff_1
@@ -149,7 +147,7 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
-    for (int i = 0; i < MAX_LINES; i++)
+    for (int i = 0; i < NUM_ITEMS; i++)
     {
       // Get the user input
       char* line = get_user_input();
@@ -356,7 +354,7 @@ void *changePlusSign(void *args)
 					
 					// shift everything else over one spot, because there is one less item
 					while(line[s+1] != '\0') {
-						line[s+1] = line[s+2];
+						line[s +1] = line[s+2];
 						s++;
 					}
 			   }   
@@ -374,6 +372,9 @@ void *changePlusSign(void *args)
  Consume an item from the buffer shared with the plus sign thread.
  Print the item.
 */
+int count = 0; 
+char* tempString;
+
 void *write_output(void *args)
 {
     char* line3;
@@ -382,17 +383,15 @@ void *write_output(void *args)
     
     char* TempLine = NULL;
     
-    for (int i = 0; i < MAX_LINES; i++)
+    for (int i = 0; i < NUM_ITEMS; i++)
     {
       // get the item from buffer 3 to print
-      	TempLine = get_buff_3();
+      	line3 = get_buff_3();
    
 //      size3 = strlen(line3) -1;      
 //      printf("%d\n", size3);
       
 	  	printf("%d\n", lineSize);
-	  	
-	  	strcat(line3, TempLine);
       
        // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
@@ -425,13 +424,13 @@ void *write_output(void *args)
 			
 			//---else----maybe could just do this instead---less code-- print 80 chars- and a newline- check if remainder is less than or == to 80--if so exit- 
 			//otherwise print 80 chars and newline-and check again 
-		
+			printf("\nOutput: %s\n", line3);
 //	   }
 //	   else {
 //	   		strcat(TempLine, line3);
 //	   }
     }
-    	printf("\nOutput: %s\n", line3);
+    
 //    if(lineSize >= MAX_CHAR) {
 	
 //		while(line3 != NULL) {
