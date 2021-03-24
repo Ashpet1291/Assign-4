@@ -301,7 +301,7 @@ void *changePlusSign(void *args)
     char* success =NULL;
     
     int x;
-    int s;
+    int s = 0;
     
     for (int i = 0; i < NUM_ITEMS; i++)
     {
@@ -309,30 +309,30 @@ void *changePlusSign(void *args)
     	line = get_buff_2();
     	 	
     	int i = 0;
-//        	
-//    	// check if the line contins ++
-//    	char *ptr = strstr(line, plus);
-//		// if this isn't null, ++ was found
-//		if (ptr != NULL) 
-//		{
-//			for(x=0; x < NUM_ITEMS; x++) {
-//				
-//				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
-//				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
-//					line[x] = carat;
-//					
-//					// there were two plus signs being changed to a carat, decrease lineSize by 1
-//					lineSize = lineSize -1;
-//					
-//					// shift everything else over one spot, because there is one less item
-//					while(line[s+1] != '\0') {
-//						line[s +1] = line[s+2];
-//						s++;
-//					}
-//			   }   
-//			}							
-// 		}
-//    // put this item in the next buffer for output        
+        	
+    	// check if the line contins ++
+    	char *ptr = strstr(line, plus);
+		// if this isn't null, ++ was found
+		if (ptr != NULL) 
+		{
+			for(x=0; x < NUM_ITEMS; x++) {
+				
+				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
+					line[x] = carat;
+					
+					// there were two plus signs being changed to a carat, decrease lineSize by 1
+					lineSize = lineSize -1;
+					
+					// shift everything else over one spot, because there is one less item
+					while(line[s+1] != '\0') {
+						line[s+1] = line[s+2];
+						s++;
+					}
+			   }   
+			}							
+ 		}
+    // put this item in the next buffer for output        
     	put_buff_3(line);     
 	}
     return NULL;
