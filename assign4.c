@@ -373,6 +373,8 @@ void *write_output(void *args)
 //    	
 //		
     		line3 = get_buff_3();
+    		
+    		printf("Output: %s", line3);
 //    		
 //    		if(stopProcess != 1) {
 
