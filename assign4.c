@@ -93,8 +93,6 @@ char* get_user_input(){
 	// holds the user input		
 	char* line = NULL;
 	
-	while(lineSize >= 0) {
-	
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
@@ -110,7 +108,6 @@ char* get_user_input(){
 		
 		stopProcess = 1;
 	}
-   }
 
 	return line;
 }
