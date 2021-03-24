@@ -400,7 +400,7 @@ void *write_output(void *args)
 		}
 		
 //		for (int i = 0; i < MAX_LINES; i++) {
-			printf("Output: %s", line3);
+		//	printf("Output: %s", line3);
 //		}
 //    		line3 = get_buff_3();
 ////			stopProcess
