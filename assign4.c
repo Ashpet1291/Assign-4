@@ -98,14 +98,14 @@ char* get_user_input(){
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
-	 while (lineSize > 0)
-    {
-//    /* Increment our line count */
-////    	line_count++;
-    	lineSize = getline(&line, &len, stdin);
-    	strcat(tempLine, line);
-    	
-	}
+//	 while (lineSize > 0)
+//    {
+////    /* Increment our line count */
+//////    	line_count++;
+//    	lineSize = getline(&line, &len, stdin);
+//    	strcat(tempLine, line);
+//    	
+//	}
 	
 	//printf("linsize is: %d\n", lineSize);
 //	if(strstr(line, "STOP") == 0) {
