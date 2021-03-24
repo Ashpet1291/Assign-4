@@ -8,7 +8,7 @@
 // tutorialspoint.com
 
 
-// to run the code
+// to build the code
 //gcc -std=gnu99 -pthread -o line_processor assign4.c
 
 
@@ -385,12 +385,14 @@ void *write_output(void *args)
     for (int i = 0; i < MAX_LINES; i++)
     {
       // get the item from buffer 3 to print
-      	line3 = get_buff_3();
+      	TempLine = get_buff_3();
    
 //      size3 = strlen(line3) -1;      
 //      printf("%d\n", size3);
       
 	  	printf("%d\n", lineSize);
+	  	
+	  	strcat(line3, Templine);
       
        // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
@@ -423,13 +425,13 @@ void *write_output(void *args)
 			
 			//---else----maybe could just do this instead---less code-- print 80 chars- and a newline- check if remainder is less than or == to 80--if so exit- 
 			//otherwise print 80 chars and newline-and check again 
-			printf("\nOutput: %s\n", line3);
+		
 //	   }
 //	   else {
 //	   		strcat(TempLine, line3);
 //	   }
     }
-    
+    	printf("\nOutput: %s\n", line3);
 //    if(lineSize >= MAX_CHAR) {
 	
 //		while(line3 != NULL) {
