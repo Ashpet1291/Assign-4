@@ -222,25 +222,25 @@ void *lineSeparator(void *args)
     	// check if the line contins a newline
     	char *ptr = strstr(line, newLine);
 		// if this isn't null, newline-\n was found
-		if (ptr != NULL) 
-		{
-			int r = 0;
-			for(y=0; y < NUM_ITEMS; y++) {
-				
-				// if the spot in the word contains \n, change it to a space
-				if(line[y] == '\n') {
-					
-				//	strcpy(, space)
-					line[y] = space;									
-//					r = y;
-//					// shift everything else over one spot, because we lost one item in size
-//					while(line[r+1] != '\0') {
-//						line[r +1] = line[r+2];
-//						r++;
-//					}
-			   }   
-    		}
-		}
+//		if (ptr != NULL) 
+//		{
+//			int r = 0;
+//			for(y=0; y < NUM_ITEMS; y++) {
+//				
+//				// if the spot in the word contains \n, change it to a space
+//				if(line[y] == '\n') {
+//					
+//				//	strcpy(, space)
+//					line[y] = space;									
+////					r = y;
+////					// shift everything else over one spot, because we lost one item in size
+////					while(line[r+1] != '\0') {
+////						line[r +1] = line[r+2];
+////						r++;
+////					}
+//			   }   
+//    		}
+//		}
            put_buff_2(line);      ///////////////////////put line here
     }
    
