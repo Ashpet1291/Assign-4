@@ -141,26 +141,6 @@ void *get_input(void *args)
     {
       // Get the user input
       char* line = get_user_input();
-      
-//      if(strstr(line, "STOP") == 0) {
-//		
-////		printf("linsize is: %d", lineSize);
-////		
-////		lineSize = lineSize-4;
-////		printf("linsize after -4 is: %d", lineSize);
-//		
-//		stopProcess = 1;
-//	}
-
-//	char* tempLine = NULL; 
-//
-//	while(strstr(line, "STOP") != 0) {
-//		char* line = get_user_input();
-//		
-//		
-//		strcat(tempLine, line);
-//	}
-
 
       // put it in the first buffer
       put_buff_1(line);
@@ -382,82 +362,36 @@ void *write_output(void *args)
     
     char* TempLine = NULL;
     
-   	  line3 = get_buff_3();
-      printf("\nOutput: %s\n", line3);
-   
-      // get the item from buffer 3 to print   
-      while(line3 != NULL) {
+    for (int i = 0; i < MAX_LINES; i++)
+    {
+      // get the item from buffer 3 to print
       	line3 = get_buff_3();
-      	printf("\nOutput: %s\n", line3);
-	  }
-   //   	line3 = get_buff_3();
-   
-//      size3 = strlen(line3) -1;      
-//      printf("%d\n", size3);
-      
-//	  	printf("%d\n", lineSize);
-      
-       // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
-      // if less than buffer put line in temp string to get next input
-      
-//       if(lineSize >= MAX_CHAR) {
+      	
+      	if(lineSize >= MAX_CHAR) {
+      		
+      		for(int i=0; i <= MAX_CHAR; i++) {
+      			    tempString[i] = line3[i];
+			  }
+      		// need to loop through pointer while less than or equal to 80  and put that in a string, then print the string with a newline...put the rest of the incoming string in a string an check if 8
+      		printf("\nOutput: %s\n", tempString);
+		  }
+      	
+      	// lineSize
+      	//can do check if stop process == 1, then stop and break
+      	
+      	// while message doesn't contain STOP, or do while less than maxlines----but it keeps printing null- then do check on if string contains stop, if so break and check line-
+		  //--also need to check line anyway
+		  // get_buff_3-------- if it does, break and then erase stop and everything after it
+      	
+      	// check if size of incoming string divides equally among 80, 
+		  //if so print 80 chars and then a newline
+		  
+		  // or just check if size of incoming string is 80 or greater, if so print 80 chars and a newline----then check remain left and repeat---if 80 char or great print, else no
+      	
+      	
+//   		printf("\nOutput: %s\n", line3);
 
-//				if((lineSize % MAX_CHAR) == 0) {
-//					while(line3 != NULL) {
-//						printf("%.*s\n", MAX_CHAR, line3);
-//						line3 = line3 + MAX_CHAR;
-//					}
-//					
-//				//	printf("Here are the first 5 characters: %.*s\n", 5, mystr);
-//				} 
-//				else {
-/////////possibly just try this-this may work instead if the extra if statement
-///////////// but maybe copy it out of the buffer loop?------nope needs to be in loop because it prints as soon as 80 chars
-//////////// however need to stop recieving if recieved STOP-----maybe that goes into loop of getbuff and or it's when reading in stuff
-//					while(line3 != NULL) {
-//						if(lineSize >= MAX_CHAR)\
-//							// print 80 char line, followed by a newline
-//							printf("%.*s\n", MAX_CHAR, line3);
-//							// get rid of the 80 char line we just printed
-//							line3 = line3 + MAX_CHAR;
-// 							// minus 80 from size as we just printed 80 chars
-//							lineSize = lineSize - MAX_CHAR;
-//					}
-//				}
-			// if its mod 80 == 0/ divisible by 80 --- make another loop- while not null, then print 80 chars newline 80 chars 
-			
-			//---else----maybe could just do this instead---less code-- print 80 chars- and a newline- check if remainder is less than or == to 80--if so exit- 
-			//otherwise print 80 chars and newline-and check again 
-//			printf("\nOutput: %s\n", line3);
-//	   }
-//	   else {
-//	   		strcat(TempLine, line3);
-//	   }
-    
-//    if(lineSize >= MAX_CHAR) {
-	
-//		while(line3 != NULL) {
-//			count = count + 1;
-//		}
-
-// remainder = linesize-count
-// if remainder % 80 == 0- print line then a newline
-//
-//		for(x=0; x < NUM_ITEMS; x++) {
-//				
-//			if(lineSize % MAX_CHAR == 0) {
-//				printf("%s", line3[x]);
-//			}
-//			else {
-//				printf("%s", line3[x]);
-//				count = count + 1;
-//			}
-//			printf("%s", line3[x]);
-//			count = count + 1;
-//
-//	}
-    
-    return NULL;
+    }  
 }
 
 
