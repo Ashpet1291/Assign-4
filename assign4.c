@@ -80,18 +80,16 @@ pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 
 
-//// maybe don't initialize to zero?
-int lineSize;
+size_t lineSize = 0;
 
 /*
 Get input from the user.
 This function doesn't perform any error checking.
 */
 char* get_user_input(){
+	
 	size_t len = 0;
 		
-
-	// while loop less than 45? or null? 
 	// holds the user input		
 	char* line = NULL;
 	
@@ -102,14 +100,10 @@ char* get_user_input(){
 	lineSize = lineSize-1;
 	
 	//printf("linsize is: %d\n", lineSize);
-		
-//	lineSize = lineSize-4;
-//	printf("linsize after -4 is: %d\n", lineSize);
 	
 	if(strstr(line, "STOP") == 0) {
 		
-//		printf("linsize is: %d", lineSize);
-//		
+//		printf("linsize is: %d", lineSize);		
 //		lineSize = lineSize-4;
 //		printf("linsize after -4 is: %d", lineSize);
 		
@@ -143,20 +137,31 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
-    for (int i = 0; i < NUM_ITEMS; i++)
+    for (int i = 0; i < MAX_LINES; i++)
     {
       // Get the user input
       char* line = get_user_input();
       
-      if(strstr(line, "STOP") == 0) {
-		
-//		printf("linsize is: %d", lineSize);
+//      if(strstr(line, "STOP") == 0) {
 //		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-		
-		stopProcess = 1;
-	}
+////		printf("linsize is: %d", lineSize);
+////		
+////		lineSize = lineSize-4;
+////		printf("linsize after -4 is: %d", lineSize);
+//		
+//		stopProcess = 1;
+//	}
+
+//	char* tempLine = NULL; 
+//
+//	while(strstr(line, "STOP") != 0) {
+//		char* line = get_user_input();
+//		
+//		
+//		strcat(tempLine, line);
+//	}
+
+
       // put it in the first buffer
       put_buff_1(line);
     }
@@ -210,8 +215,7 @@ Produce an item in the buffer shared with the plussign thread.
 void *lineSeparator(void *args)
 {
     char* line = NULL;
-    
-   // char n = '\n';
+
     char space = ' ';
     char newLine[] = "\n";
     
@@ -220,7 +224,7 @@ void *lineSeparator(void *args)
     	// get item from buffer 1- input
     	line = get_buff_1();   	   	
     	int i = 0;
-    	size_t y;
+    	int y;
     	
     	// check if the line contins a newline
     	char *ptr = strstr(line, newLine);
@@ -251,42 +255,6 @@ void *lineSeparator(void *args)
 }
 
 
-/*
-Put an item in buff_3
-*/
-void put_buff_3(char* line){
-  // Lock the mutex before putting the item in the buffer
-  pthread_mutex_lock(&mutex_3);
-  // Put the item in the buffer
-  buffer_3[prod_idx_3] = line;
-  // Increment the index where the next item will be put.
-  prod_idx_3 = prod_idx_3 + 1;
-  count_3++;
-  // Signal to the consumer that the buffer is no longer empty
-  pthread_cond_signal(&full_3);
-  // Unlock the mutex
-  pthread_mutex_unlock(&mutex_3);
-}
-
-
-/*
-Get the next item from buffer 3
-*/
-char* get_buff_3(){
-  // Lock the mutex before checking if the buffer has data
-  pthread_mutex_lock(&mutex_3);
-  while (count_3 == 0)
-    // Buffer is empty. Wait for the producer to signal that the buffer has data
-    pthread_cond_wait(&full_3, &mutex_3);
-  char* line = buffer_3[con_idx_3];
-  // Increment the index from which the item will be picked up
-  con_idx_3 = con_idx_3 + 1;
-  count_3--;
-  // Unlock the mutex
-  pthread_mutex_unlock(&mutex_3);
-  // Return the item
-  return line;
-}
 
 
 /*
@@ -308,6 +276,23 @@ char* get_buff_2(){
   return line;
 }
 
+
+/*
+Put an item in buff_3
+*/
+void put_buff_3(char* line){
+  // Lock the mutex before putting the item in the buffer
+  pthread_mutex_lock(&mutex_3);
+  // Put the item in the buffer
+  buffer_3[prod_idx_3] = line;
+  // Increment the index where the next item will be put.
+  prod_idx_3 = prod_idx_3 + 1;
+  count_3++;
+  // Signal to the consumer that the buffer is no longer empty
+  pthread_cond_signal(&full_3);
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_3);
+}
 
 /*
 Function that the plus separator thread will run
@@ -360,6 +345,25 @@ void *changePlusSign(void *args)
     return NULL;
 }
 
+/*
+Get the next item from buffer 3
+*/
+char* get_buff_3(){
+  // Lock the mutex before checking if the buffer has data
+  pthread_mutex_lock(&mutex_3);
+  while (count_3 == 0)
+    // Buffer is empty. Wait for the producer to signal that the buffer has data
+    pthread_cond_wait(&full_3, &mutex_3);
+  char* line = buffer_3[con_idx_3];
+  // Increment the index from which the item will be picked up
+  con_idx_3 = con_idx_3 + 1;
+  count_3--;
+  // Unlock the mutex
+  pthread_mutex_unlock(&mutex_3);
+  // Return the item
+  return line;
+}
+
 
 
 /*
@@ -386,7 +390,7 @@ void *write_output(void *args)
 //      size3 = strlen(line3) -1;      
 //      printf("%d\n", size3);
       
-	  	printf("%d\n", lineSize);
+//	  	printf("%d\n", lineSize);
       
        // if output is great then 80 then ,,,remainder = mod 80 the line, put string size of remainder in tempstring wait for next buffer(call function?) to concat
       // if less than buffer put line in temp string to get next input
