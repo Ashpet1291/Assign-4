@@ -142,14 +142,6 @@ void *get_input(void *args)
       char* line = get_user_input();
 	  char* point = strstr(line, "STOP");
 	  
-	  	if(strstr(line, "STOP") == 0) {
-		
-//		printf("linsize is: %d", lineSize);		
-//		lineSize = lineSize-4;
-//		printf("linsize after -4 is: %d", lineSize);
-		break;
-		stopProcess = 1;
-	}
 	  
 //	  (strstr(line, "STOP") == 0)
 		
@@ -385,6 +377,18 @@ void *write_output(void *args)
     		line3 = get_buff_3();
 //    		
 //    		if(stopProcess != 1) {
+
+
+	if(strstr(line, "STOP") == 0) {
+		
+//		printf("linsize is: %d", lineSize);		
+//		lineSize = lineSize-4;
+//		printf("linsize after -4 is: %d", lineSize);
+			
+		printf("Output: %s\n", line3);
+		break;
+		stopProcess = 1;
+	}
 //    				
 			printf("Output: %s\n", line3);
 //			}
