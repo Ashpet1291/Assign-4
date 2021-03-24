@@ -117,7 +117,7 @@ char* get_user_input(){
 		stopProcess = 1;
 	}
 
-	return *line;
+	return line;
 }
 
 /*
