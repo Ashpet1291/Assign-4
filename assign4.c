@@ -199,37 +199,37 @@ void *lineSeparator(void *args)
     char space = ' ';
     char newLine[] = "\n";
     
-    for (int i = 0; i < NUM_ITEMS; i++)
-    {
-    	// get item from buffer 1- input
-    	line = get_buff_1();   	   	
-    	int i = 0;
-    	int y;
-    	
-    	// check if the line contins a newline
-    	char *ptr = strstr(line, newLine);
-		// if this isn't null, newline-\n was found
-		if (ptr != NULL) 
-		{
-			int r = 0;
-			for(y=0; y < NUM_ITEMS; y++) {
-				
-				// if the spot in the word contains \n, change it to a space
-				if(line[y] == '\n') {
-					
-				//	strcpy(, space)
-					line[y] = space;									
-//					r = y;
-//					// shift everything else over one spot, because we lost one item in size
-//					while(line[r+1] != '\0') {
-//						line[r +1] = line[r+2];
-//						r++;
-//					}
-			   }   
-    		}
-		}
-           put_buff_2(line);      ///////////////////////put line here
-    }
+//    for (int i = 0; i < NUM_ITEMS; i++)
+//    {
+//    	// get item from buffer 1- input
+//    	line = get_buff_1();   	   	
+//    	int i = 0;
+//    	int y;
+//    	
+//    	// check if the line contins a newline
+//    	char *ptr = strstr(line, newLine);
+//		// if this isn't null, newline-\n was found
+//		if (ptr != NULL) 
+//		{
+//			int r = 0;
+//			for(y=0; y < NUM_ITEMS; y++) {
+//				
+//				// if the spot in the word contains \n, change it to a space
+//				if(line[y] == '\n') {
+//					
+//				//	strcpy(, space)
+//					line[y] = space;									
+////					r = y;
+////					// shift everything else over one spot, because we lost one item in size
+////					while(line[r+1] != '\0') {
+////						line[r +1] = line[r+2];
+////						r++;
+////					}
+//			   }   
+//    		}
+//		}
+//           put_buff_2(line);      ///////////////////////put line here
+//    }
    
     return NULL;
 }
@@ -282,47 +282,47 @@ Produce an item in the buffer shared with the output thread.
 */
 void *changePlusSign(void *args)
 {
-    char* line = NULL;
-    char plus[] = {"++"};
-    char onePlus = '+';
-    char carat = '^';
-    char* success =NULL;
-    
-    int x;
-    int s;
-    
-    for (int i = 0; i < NUM_ITEMS; i++)
-    {
-    	// get the item from buff 2
-    	line = get_buff_2();
-    	 	
-    	int i = 0;
-        	
-    	// check if the line contins ++
-    	char *ptr = strstr(line, plus);
-		// if this isn't null, ++ was found
-		if (ptr != NULL) 
-		{
-			for(x=0; x < NUM_ITEMS; x++) {
-				
-				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
-				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
-					line[x] = carat;
-					
-					// there were two plus signs being changed to a carat, decrease lineSize by 1
-					lineSize = lineSize -1;
-					
-					// shift everything else over one spot, because there is one less item
-					while(line[s+1] != '\0') {
-						line[s +1] = line[s+2];
-						s++;
-					}
-			   }   
-			}							
- 		}
-    // put this item in the next buffer for output        
-    put_buff_3(line);     }
-    return NULL;
+//    char* line = NULL;
+//    char plus[] = {"++"};
+//    char onePlus = '+';
+//    char carat = '^';
+//    char* success =NULL;
+//    
+//    int x;
+//    int s;
+//    
+//    for (int i = 0; i < NUM_ITEMS; i++)
+//    {
+//    	// get the item from buff 2
+//    	line = get_buff_2();
+//    	 	
+//    	int i = 0;
+//        	
+//    	// check if the line contins ++
+//    	char *ptr = strstr(line, plus);
+//		// if this isn't null, ++ was found
+//		if (ptr != NULL) 
+//		{
+//			for(x=0; x < NUM_ITEMS; x++) {
+//				
+//				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+//				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
+//					line[x] = carat;
+//					
+//					// there were two plus signs being changed to a carat, decrease lineSize by 1
+//					lineSize = lineSize -1;
+//					
+//					// shift everything else over one spot, because there is one less item
+//					while(line[s+1] != '\0') {
+//						line[s +1] = line[s+2];
+//						s++;
+//					}
+//			   }   
+//			}							
+// 		}
+//    // put this item in the next buffer for output        
+//    put_buff_3(line);     }
+//    return NULL;
 }
 
 /*
