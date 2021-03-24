@@ -378,7 +378,7 @@ void *write_output(void *args)
 //    		
 //    		if(stopProcess != 1) {
 //    				
-			printf("\nOutput: %s\n", line3);
+			printf("Output: %s\n", line3);
 //			}
 //			count++;
 			
