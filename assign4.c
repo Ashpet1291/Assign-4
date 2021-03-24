@@ -199,13 +199,13 @@ void *lineSeparator(void *args)
     char space = ' ';
     char newLine[] = "\n";
     
-//    for (int i = 0; i < NUM_ITEMS; i++)
-//    {
-//    	// get item from buffer 1- input
-//    	line = get_buff_1();   	   	
-//    	int i = 0;
-//    	int y;
-//    	
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+    	// get item from buffer 1- input
+    	line = get_buff_1();   	   	
+    	int i = 0;
+    	int y;
+    	
 //    	// check if the line contins a newline
 //    	char *ptr = strstr(line, newLine);
 //		// if this isn't null, newline-\n was found
@@ -228,8 +228,8 @@ void *lineSeparator(void *args)
 //			   }   
 //    		}
 //		}
-//           put_buff_2(line);      ///////////////////////put line here
-//    }
+           put_buff_2(line);      ///////////////////////put line here
+    }
    
     return NULL;
 }
@@ -282,21 +282,21 @@ Produce an item in the buffer shared with the output thread.
 */
 void *changePlusSign(void *args)
 {
-//    char* line = NULL;
-//    char plus[] = {"++"};
-//    char onePlus = '+';
-//    char carat = '^';
-//    char* success =NULL;
-//    
-//    int x;
-//    int s;
-//    
-//    for (int i = 0; i < NUM_ITEMS; i++)
-//    {
-//    	// get the item from buff 2
-//    	line = get_buff_2();
-//    	 	
-//    	int i = 0;
+    char* line = NULL;
+    char plus[] = {"++"};
+    char onePlus = '+';
+    char carat = '^';
+    char* success =NULL;
+    
+    int x;
+    int s;
+    
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+    	// get the item from buff 2
+    	line = get_buff_2();
+    	 	
+    	int i = 0;
 //        	
 //    	// check if the line contins ++
 //    	char *ptr = strstr(line, plus);
@@ -321,8 +321,9 @@ void *changePlusSign(void *args)
 //			}							
 // 		}
 //    // put this item in the next buffer for output        
-//    put_buff_3(line);     }
-//    return NULL;
+    put_buff_3(line);     
+	}
+    return NULL;
 }
 
 /*
