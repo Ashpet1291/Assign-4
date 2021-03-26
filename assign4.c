@@ -413,7 +413,7 @@ void *write_output(void *args)
 		
     	line3 = get_buff_3();
     		
- //   	strcpy(temp, line3);
+    	strcpy(temp, line3);
     	
     	
  //   	length = sizeof(temp)/sizeof(temp[0]); 
