@@ -427,7 +427,7 @@ void *write_output(void *args)
 //    	
 //    	len = strlen(line3);
     	
-    	printf("length is %d", length);
+    	printf("length is %zu", length);
     	
    // 	printf("len is %d", len);
     	
