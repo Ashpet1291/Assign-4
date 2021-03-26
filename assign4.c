@@ -401,7 +401,7 @@ void *write_output(void *args)
     int i=0;
     
     char temp[NUM_ITEMS];
-    size_t length = 0;
+    int length = 0;
     int size3 = 0;
     
     
@@ -418,7 +418,7 @@ void *write_output(void *args)
 		
 		length = sizeof(temp) / sizeof(temp[0]);
 		
-		printf("size is %z\n", length);
+		printf("size is %d \n", length);
     
 	
 ////////////////////////////////////////////////////////gts length of array	
