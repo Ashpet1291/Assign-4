@@ -422,13 +422,13 @@ void *write_output(void *args)
     	
     	while (temp[i] != '\0')
         {
-        //	printf("Output: %c \n", temp[i]);
+        	printf("Output: %c \n", temp[i]);
         	i++;
-        	length = length+1;
+        //	length = length+1;
     	}
 
     	
-    	printf("Number of elements present in given array: %d", length);    
+    //	printf("Number of elements present in given array: %d", length);    
 		
 	
     
