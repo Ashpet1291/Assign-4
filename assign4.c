@@ -79,7 +79,6 @@ pthread_mutex_t mutex_3 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 
-
 size_t lineSize = 0;
 
 char tempLine[NUM_ITEMS];
@@ -401,7 +400,9 @@ void *write_output(void *args)
     int i=0;
     
     char temp[NUM_ITEMS];
-    size_t length = 0;
+    int length = 0;
+    
+    
     int size3 = 0;
     
     
@@ -412,13 +413,20 @@ void *write_output(void *args)
 //    	while(count <= MAX_LINES) {
 //    	
 //		
-    		line3 = get_buff_3();
+    	line3 = get_buff_3();
     		
     	strcpy(temp, line3);
+    	
+    	
+    	while (temp[i] != '\0')
+    	{
+    		length += 1;
+        	i++;
+    	}
+    	
+    	printf("%d", length);
 		
-		length = sizeof(temp) / sizeof(temp[0]);
-		
-		printf("size is %zu", length);
+	
     
 	
 ////////////////////////////////////////////////////////gts length of array	
