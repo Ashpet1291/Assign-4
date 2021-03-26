@@ -418,7 +418,7 @@ void *write_output(void *args)
     //	strcpy(temp, line3);
     	
     	
-    	size_t length = strlen(line3);
+    //	size_t length = strlen(line3);
     	
     //	length = sizeof(temp)/sizeof(temp[0]); 
 //    	length = strlen(temp);
@@ -427,7 +427,7 @@ void *write_output(void *args)
 //    	
 //    	len = strlen(line3);
     	
-    	printf("length is %zu", length);
+    	//printf("length is %zu", length);
     	
    // 	printf("len is %d", len);
     	
@@ -481,7 +481,7 @@ void *write_output(void *args)
 //}
     		
     		
-    //		printf("Output: %s", line3);
+    		printf("Output: %s", line3);
     
     
     
