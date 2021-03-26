@@ -221,7 +221,7 @@ void *lineSeparator(void *args)
     	line = get_buff_1();  
 		
 		
-		for(i=0;line[i]!='\0';i++)
+		for(i=0; i<NUM_ITEMS;i++)
      	{
      		if(line[i]=='\n') {
           		line[i]=' ';
