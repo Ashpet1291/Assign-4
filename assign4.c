@@ -418,7 +418,7 @@ void *write_output(void *args)
 		
 		length = sizeof(temp) / sizeof(temp[0]);
 		
-		printf("size is %d", length);
+		printf("size is %zu", length);
     
 	
 ////////////////////////////////////////////////////////gts length of array	
