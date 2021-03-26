@@ -398,6 +398,9 @@ char* tempString;
 void *write_output(void *args)
 {
     char* line3;
+    int i=0;
+    
+    char temp[NUM_ITEMS];
     int size3 = 0;
     
     
@@ -410,7 +413,44 @@ void *write_output(void *args)
 //		
     		line3 = get_buff_3();
     		
-    		printf("Output: %s", line3);
+    	strcpy(temp, line3);	
+    		
+    		
+    		
+    		
+    while (temp[i] != '\0')
+    {
+        printf("Output: %c \n", temp[i]);
+        i++;
+    }
+    return 0;
+		
+    		
+    		
+//////////////////////////////////////////////////////////////////////    		
+//    		#define DEST_SIZE 40
+//
+//int main()
+//{
+//	char src[] = "Look Here";
+//	char dest[DEST_SIZE] = "Unimaginable";
+//
+//	char *p = dest + 5;
+//
+//	strcpy(p, src);
+//	printf(dest);
+//
+//	return 0;
+//}
+    		
+    		
+    //		printf("Output: %s", line3);
+    
+    
+    
+    
+    
+    
 //    		
 //    		if(stopProcess != 1) {
 
