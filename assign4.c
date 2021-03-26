@@ -401,6 +401,7 @@ void *write_output(void *args)
     int i=0;
     
     char temp[NUM_ITEMS];
+    size_t length = 0;
     int size3 = 0;
     
     
@@ -413,18 +414,30 @@ void *write_output(void *args)
 //		
     		line3 = get_buff_3();
     		
-    	strcpy(temp, line3);	
-    		
-    		
-    		
-    		
-    while (temp[i] != '\0')
-    {
-        printf("Output: %c \n", temp[i]);
-        i++;
-    }
-    return 0;
+    	strcpy(temp, line3);
 		
+		length = sizeof(temp) / sizeof(temp[0]);
+		
+		printf("size is %z\n", length);
+    
+	
+////////////////////////////////////////////////////////gts length of array	
+//	int array[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+//
+///* size of `array` in bytes */
+//size_t size = sizeof(array);
+//
+///* number of elements in `array` */
+//size_t length = sizeof(array) / sizeof(array[0]);		
+    		
+    		
+  //////////////////////////////////////////prints array  		
+//    while (temp[i] != '\0')
+//    {
+//        printf("Output: %c \n", temp[i]);
+//        i++;
+//    }
+
     		
     		
 //////////////////////////////////////////////////////////////////////    		
