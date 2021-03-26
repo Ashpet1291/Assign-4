@@ -410,34 +410,21 @@ void *write_output(void *args)
     
     for (int i = 0; i < MAX_LINES; i++)
     {
-//    	while(count <= MAX_LINES) {
-//    	
-//		
+		
     	line3 = get_buff_3();
     		
  //   	strcpy(temp, line3);
     	
     	
-    //	size_t length = strlen(line3);
-    	
  //   	length = sizeof(temp)/sizeof(temp[0]); 
-    	length = strlen(line3);
-//    	
-//    	int len = 0;
-//    	
-//    	len = strlen(line3);
-    	
-    	//printf("length is %zu", length);
-    	
-//    	printf("length is %d", length);
     	
     	
-//    	while (temp[i] != '\0')
-//        {
-//        	printf("Output: %c \n", temp[i]);
-//        	i++;
-//        //	length = length+1;
-//    	}
+    	while (temp[i] != '\0')
+        {
+        	printf("Output: %c", temp[i]);
+        	i++;
+        //	length = length+1;
+    	}
 
     	
     //	printf("Number of elements present in given array: %d", length);    
@@ -484,15 +471,8 @@ void *write_output(void *args)
     //		printf("Output: %s", line3);
 //            printf("Output: %d", lineSize);
 
-}
-  	length = strlen(line3);
-  //  printf("Output: %d", length);
-    printf("Output: %d", lineSize);
-    
-    
-    
-    
-//    		
+	}
+        		
 //    		if(stopProcess != 1) {
 
 
@@ -508,10 +488,7 @@ void *write_output(void *args)
 //	}
 //    				
 		//	printf("Output: %s\n", line3);
-//			}
-			
 
-//			count++;
 			
     	
 		
