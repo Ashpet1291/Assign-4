@@ -417,12 +417,16 @@ void *write_output(void *args)
     		
     	strcpy(temp, line3);
     	
-    	length = sizeof(temp)/sizeof(temp[0]); 
-//    	while (temp[i] != '\0')
-//    	{
-//    		length += 1;
-//        	i++;
-//    	}
+    //	length = sizeof(temp)/sizeof(temp[0]); 
+    	
+    	
+    	while (temp[i] != '\0')
+        {
+        //	printf("Output: %c \n", temp[i]);
+        	i++;
+        	length = length+1;
+    	}
+
     	
     	printf("Number of elements present in given array: %d", length);    
 		
