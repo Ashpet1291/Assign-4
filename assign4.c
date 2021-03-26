@@ -486,7 +486,7 @@ void *write_output(void *args)
 
 }
   	length = strlen(line3);
-    printf("Output: %d", length);
+  //  printf("Output: %d", length);
     printf("Output: %d", lineSize);
     
     
