@@ -97,6 +97,9 @@ char* get_user_input(){
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
+// remove trailing newline	
+//	mystring[strlen(mystring)-1] = '\0';
+	
 //	 while (lineSize > 0)
 //    {
 ////    /* Increment our line count */
@@ -215,56 +218,45 @@ void *lineSeparator(void *args)
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	// get item from buffer 1- input
-    	line = get_buff_1();   	   	
-    	int i = 0;
-    	int y = 0;
-    	int r = 0;
-    	     	
-    	// check if the line contins ++
-    	char *ptr = strstr(line, newLine);
-		// if this isn't null, ++ was found
-		if (ptr != NULL) 
-		{
-			for(y=0; y < NUM_ITEMS; y++) {
-				
-				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
-				if(line[y] == newLine){				
-					line[y] = space;
-					
-//					r=y;
-//					// there were two plus signs being changed to a carat, decrease lineSize by 1
-//					lineSize = lineSize -1;
-//					
-//					// shift everything else over one spot, because there is one less item
-//					while(line[s+1] != '\0') {
-//						line[s+1] = line[s+2];
-//						s++;
-//					}
-			   }   
-			}							
- 		}
-    // put this item in the next buffer for output
-    	
-		// if this isn't null, newline-\n was found
+    	line = get_buff_1();  
+		
+		
+		for(i=0;str[i]!='\0';i++)
+     	{
+     		if(line[i]=='\n') {
+          		line[i]=' ';
+            }
+        }
+		
+		 	   	
+//    	int i = 0;
+//    	int y = 0;
+//    	int r = 0;
+//    	     	
+//    	// check if the line contins ++
+//    	char *ptr = strstr(line, newLine);
+//		// if this isn't null, ++ was found
 //		if (ptr != NULL) 
 //		{
-//			int r = 0;
 //			for(y=0; y < NUM_ITEMS; y++) {
 //				
-//				// if the spot in the word contains \n, change it to a space
-//				if(line[y] == '\n') {
+//				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+//				if(line[y] == newLine){				
+//					line[y] = space;
 //					
-//				//	strcpy(, space)
-//					line[y] = space;									
-////					r = y;
-////					// shift everything else over one spot, because we lost one item in size
-////					while(line[r+1] != '\0') {
-////						line[r +1] = line[r+2];
-////						r++;
+////					r=y;
+////					// there were two plus signs being changed to a carat, decrease lineSize by 1
+////					lineSize = lineSize -1;
+////					
+////					// shift everything else over one spot, because there is one less item
+////					while(line[s+1] != '\0') {
+////						line[s+1] = line[s+2];
+////						s++;
 ////					}
 //			   }   
-//    		}
-//		}
+//			}							
+// 		}
+
            put_buff_2(line);      ///////////////////////put line here
     }
    
@@ -419,12 +411,12 @@ void *write_output(void *args)
  //   	length = sizeof(temp)/sizeof(temp[0]); 
     	
     	
-    	while (temp[i] != '\0')
-        {
-        	printf("%c", temp[i]);
-        	i++;
-        //	length = length+1;
-    	}
+//    	while (temp[i] != '\0')
+//        {
+//        	printf("%c", temp[i]);
+//        	i++;
+//        //	length = length+1;
+//    	}
 
     	
     //	printf("Number of elements present in given array: %d", length);    
@@ -468,7 +460,7 @@ void *write_output(void *args)
 //}
     		
     		
-    //		printf("Output: %s", line3);
+    		printf("Output: %s", line3);
 //            printf("Output: %d", lineSize);
 
 	}
