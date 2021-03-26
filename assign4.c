@@ -421,7 +421,7 @@ void *write_output(void *args)
     	
     	while (temp[i] != '\0')
         {
-        	printf("Output: %c", temp[i]);
+        	printf("%c", temp[i]);
         	i++;
         //	length = length+1;
     	}
