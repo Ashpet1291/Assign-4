@@ -421,7 +421,7 @@ void *write_output(void *args)
     //	size_t length = strlen(line3);
     	
  //   	length = sizeof(temp)/sizeof(temp[0]); 
-//    	length = strlen(temp);
+    	length = strlen(line3);
 //    	
 //    	int len = 0;
 //    	
@@ -481,11 +481,13 @@ void *write_output(void *args)
 //}
     		
     		
-    		printf("Output: %s", line3);
+    //		printf("Output: %s", line3);
 //            printf("Output: %d", lineSize);
 
-    
-    
+}
+  	length = strlen(line3);
+    printf("Output: %d", length);
+    printf("Output: %d", lineSize);
     
     
     
@@ -511,8 +513,7 @@ void *write_output(void *args)
 
 //			count++;
 			
-    		
-		}
+    	
 		
 //		for (int i = 0; i < MAX_LINES; i++) {
 		//	printf("Output: %s", line3);
