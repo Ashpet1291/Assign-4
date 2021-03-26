@@ -482,7 +482,7 @@ void *write_output(void *args)
     		
     		
     //		printf("Output: %s", line3);
-            printf("Output: %zu", lineSize);
+            printf("Output: %d", lineSize);
 
     
     
