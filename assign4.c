@@ -400,9 +400,9 @@ void *write_output(void *args)
     int i=0;
     
     char temp[NUM_ITEMS];
-    int length = 0;
+  //  int length = 0;
     
-    
+ 
     int size3 = 0;
     
     
@@ -415,18 +415,21 @@ void *write_output(void *args)
 //		
     	line3 = get_buff_3();
     		
-    	strcpy(temp, line3);
+    //	strcpy(temp, line3);
+    	
+    	
+    	size_t length = strlen(line3);
     	
     //	length = sizeof(temp)/sizeof(temp[0]); 
-    	length = strlen(temp);
-    	
-    	int len = 0;
-    	
-    	len = strlen(line3);
+//    	length = strlen(temp);
+//    	
+//    	int len = 0;
+//    	
+//    	len = strlen(line3);
     	
     	printf("length is %d", length);
     	
-    	printf("len is %d", len);
+   // 	printf("len is %d", len);
     	
     	
 //    	while (temp[i] != '\0')
