@@ -4,7 +4,7 @@
 // sources and inspirations
 // used code from examples given by the instructor (I will label those in code)
 // most of the code for buffer functions came from instructors examples
-// https://stackoverflow.com/ for trouble shooting and looking up how to o a specific task
+// https://stackoverflow.com/ for trouble shooting and looking up how to do a very simple specific task
 // tutorialspoint.com
 
 
@@ -94,6 +94,14 @@ char* get_user_input(){
 	// holds the user input		
 	char* line = NULL;
 	
+	
+	/// need to do a loop to get line while not the end of file---strcat data
+	////or loop from getline while not null?strcat-----then send to be processes
+	
+	///////does getline also add a newline
+	
+	/////////get rid of newline---------strstr newline---if no, send--else extract and reaplace, then start over--
+	
 	// get input from stdIn
 	lineSize = getline(&line, &len, stdin);
 	
@@ -147,7 +155,6 @@ void put_buff_1(char* tmpLine){
 void *get_input(void *args)
 {
 	//cahnged NUM_ITEMS to MAXLINES
-//    for (int i = 0; i < NUM_ITEMS; i++)
     for (int i = 0; i < MAX_LINES; i++)
     {
       // Get the user input
@@ -221,41 +228,41 @@ void *lineSeparator(void *args)
     	line = get_buff_1();  
 		
 		
-		for(i=0; i<NUM_ITEMS;i++)
-     	{
-     		if(line[i]=='\n') {
-          		line[i]=' ';
-            }
-        }
+//		for(i=0; i<NUM_ITEMS;i++)
+//     	{
+//     		if(line[i]=='\n') {
+//          		line[i]=' ';
+//            }
+//        }
 		
 		 	   	
 //    	int i = 0;
 //    	int y = 0;
 //    	int r = 0;
 //    	     	
-//    	// check if the line contins ++
-//    	char *ptr = strstr(line, newLine);
-//		// if this isn't null, ++ was found
-//		if (ptr != NULL) 
-//		{
-//			for(y=0; y < NUM_ITEMS; y++) {
-//				
-//				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
-//				if(line[y] == newLine){				
-//					line[y] = space;
+    	// check if the line contins ++
+    	char *ptr = strstr(line, newLine);
+		// if this isn't null, ++ was found
+		if (ptr != NULL) 
+		{
+			for(y=0; y < NUM_ITEMS; y++) {
+				
+				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+				if(line[y] == newLine){				
+					line[y] = space;
+					
+//					r=y;
+//					// there were two plus signs being changed to a carat, decrease lineSize by 1
+//					lineSize = lineSize -1;
 //					
-////					r=y;
-////					// there were two plus signs being changed to a carat, decrease lineSize by 1
-////					lineSize = lineSize -1;
-////					
-////					// shift everything else over one spot, because there is one less item
-////					while(line[s+1] != '\0') {
-////						line[s+1] = line[s+2];
-////						s++;
-////					}
-//			   }   
-//			}							
-// 		}
+//					// shift everything else over one spot, because there is one less item
+//					while(line[s+1] != '\0') {
+//						line[s+1] = line[s+2];
+//						s++;
+//					}
+			   }   
+			}							
+ 		}
 
            put_buff_2(line);      ///////////////////////put line here
     }
@@ -334,7 +341,7 @@ void *changePlusSign(void *args)
 		{
 			for(x=0; x < NUM_ITEMS; x++) {
 				
-				// if the spot in the word contains +, and the next spot also contains a plus, then change it to a ^
+				// if the spot in the line contains +, and the next spot also contains a plus, then change it to a ^
 				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
 					line[x] = carat;
 					
@@ -421,43 +428,6 @@ void *write_output(void *args)
     	
     //	printf("Number of elements present in given array: %d", length);    
 		
-	
-    
-	
-////////////////////////////////////////////////////////gts length of array	
-//	int array[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-//
-///* size of `array` in bytes */
-//size_t size = sizeof(array);
-//
-///* number of elements in `array` */
-//size_t length = sizeof(array) / sizeof(array[0]);		
-    		
-    		
-  //////////////////////////////////////////prints array  		
-//    while (temp[i] != '\0')
-//    {
-//        printf("Output: %c \n", temp[i]);
-//        i++;
-//    }
-
-    		
-    		
-//////////////////////////////////////////////////////////////////////    		
-//    		#define DEST_SIZE 40
-//
-//int main()
-//{
-//	char src[] = "Look Here";
-//	char dest[DEST_SIZE] = "Unimaginable";
-//
-//	char *p = dest + 5;
-//
-//	strcpy(p, src);
-//	printf(dest);
-//
-//	return 0;
-//}
     		
     		
     		printf("Output: %s", line3);
@@ -516,8 +486,6 @@ void *write_output(void *args)
 		  
 		  // or just check if size of incoming string is 80 or greater, if so print 80 chars and a newline----then check remain left and repeat---if 80 char or great print, else no
       	
-      	
-//   		printf("\nOutput: %s\n", line3);
 
   return NULL;
 }
