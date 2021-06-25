@@ -11,15 +11,12 @@
 // to build the code
 //gcc -std=gnu99 -pthread -o line_processor assign4.c
 
-
-
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-
 
 
 // Size of the buffers
@@ -32,9 +29,6 @@
 
 #define MAX_CHAR 80
 
-int stopProcess = 0;
-
-char stopProcessing[] = {'S','T', 'O', 'P'};
 
 // these next three sections come directly from the example code given by the instructor, except I changed the int buffer arrays to char pointer
 // Buffer 1, shared resource between input thread and line separator thread
@@ -80,9 +74,6 @@ pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
 
 
 size_t lineSize = 0;
-
-char tempLine[NUM_ITEMS];
-
 size_t characters = 0;
 
 /*
@@ -90,16 +81,11 @@ Get input from the user.
 This function doesn't perform any error checking.
 */
 char* get_user_input(){
-	
-	size_t len = 0;
-	
-	char* line = NULL;
-		
-// remove trailing newline	
-//	mystring[strlen(mystring)-1] = '\0';
-	
-   	characters = getline(&line, &len, stdin);
 
+	size_t len = 0;
+	char* line = NULL;
+
+   	characters = getline(&line, &len, stdin);
 	return line;
 }
 
@@ -127,24 +113,22 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
-	char* point = NULL
+	char* point = NULL;
 	//cahnged NUM_ITEMS to MAXLINES
     for (int i = 0; i < MAX_LINES; i++)
     {
-    	//////make another loop while pointer not null put buff 1 else return null
-      // Get the user input
+        // get user input
     	char* line = get_user_input();
-    	
+        // check if line contains "STOP"
     	point = strstr(line, "STOP");
-	  
-//	  (strstr(line, "STOP") == 0)
-		
-      while(point != NULL) {
-      	   put_buff_1(line);
-	  }
-//      // put it in the first buffer
-  //  	put_buff_1(line);
-  //  }
+        // if line contains STOP, stop processing and dont send STOP
+        if(point != NULL) {
+            break;
+        }
+        else {
+            put_buff_1(line);
+        }
+    }
     return NULL;
 }
 
@@ -195,24 +179,43 @@ Produce an item in the buffer shared with the plussign thread.
 void *lineSeparator(void *args)
 {
     char* line = NULL;
-
+    char* temp_line;
     char space = ' ';
     char newLine[] = "\n";
-    
+
+    int string_length = 0;
+
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	// get item from buffer 1- input
-    	line = get_buff_1();  
-    	
-    	//// strip the newline and concat strings	
+    	line = get_buff_1();
+        string_length = strlen(line);
 
-        put_buff_2(line); 
+        //if(line[string_length-1] == '\n' )
+
+        //printf("stringlength in linsep %d\n", string_length);
+        //strcat(temp_line, line);
+
+    //    char *ptr = strstr(temp_line, newLine);
+
+    //    if(ptr != NULL) {
+    //        for(int i=0; i < NUM_ITEMS; i++) {
+    //            if(temp_line[i] == '\n') {
+    //                temp_line[i] = ' ';
+     //           }
+    //        }
+      //  }
+
+        //printf("lineseparatorthread printin:::: %s\n", line);
+        put_buff_2(line);
     }
-   
+
     return NULL;
 }
 
-
+//char destination[] = "Hello ";
+// char source[] = "World!";
+// strcat(destination,source);
 
 
 /*
@@ -264,41 +267,39 @@ void *changePlusSign(void *args)
     char plus[] = {"++"};
     char onePlus = '+';
     char carat = '^';
-    
     int s = 0;
-    
+
     for (int i = 0; i < NUM_ITEMS; i++)
     {
     	// get the item from buff 2
     	line = get_buff_2();
-    	 	
-    	int i = 0;
-        	
+
+
     	// check if the line contins ++
     	char *ptr = strstr(line, plus);
 		// if this isn't null, ++ was found
-		if (ptr != NULL) 
+		if (ptr != NULL)
 		{
-			for(int x=0; x < NUM_ITEMS; x++) {
-				
+			for(int i=0; i < NUM_ITEMS; i++) {
+
 				// if the spot in the line contains +, and the next spot also contains a plus, then change it to a ^
-				if((line[x] == onePlus) && (line[x + 1] == onePlus)){				
-					line[x] = carat;
-					
-					s=x;
+				if((line[i] == onePlus) && (line[i + 1] == onePlus)){
+					line[i] = carat;
+
+					s=i;
 					// there were two plus signs being changed to a carat, decrease lineSize by 1
 					lineSize = lineSize -1;
-					
+
 					// shift everything else over one spot, because there is one less item
 					while(line[s+1] != '\0') {
 						line[s+1] = line[s+2];
 						s++;
 					}
-			   }   
-			}							
+			   }
+			}
  		}
-    // put this item in the next buffer for output        
-    	put_buff_3(line);     
+    // put this item in the next buffer for output
+    	put_buff_3(line);
 	}
     return NULL;
 }
@@ -326,52 +327,36 @@ char* get_buff_3(){
 
 
 /*
- Function that the output thread will run. 
+ Function that the output thread will run.
  Consume an item from the buffer shared with the plus sign thread.
  Print the item.
-*/ 
-char* tempString;
-
+*/
 void *write_output(void *args)
 {
     char* line3;
-    int i=0;
-    
-    char temp[NUM_ITEMS];
-    int length = 0;
-    
- 
     int size3 = 0;
-    
-    
+    size_t size = 0;
     char* TempLine = NULL;
-    
+
     for (int i = 0; i < MAX_LINES; i++)
     {
-		
+
     	line3 = get_buff_3();
-    		
-   // 	strcat(temp, line3);
-    	
-
-    	
-    //	printf("Number of elements present in given array: %d", length);    
-		
-    		
-    		
-   		printf("Output: %s", line3);
-//            printf("Output: %d", lineSize);
-
-	}
-      	
-      	// check if size of incoming string divides equally among 80, 
+       // if(line3 != NULL) {
+   	    // printf("Number of elements present in given array: %d\n", size);
+        printf("Output: %s", line3);
+       // }
+       // else{
+       //     exit(0);
+       // }
+    }
+      	// check if size of incoming string divides equally among 80,
 		  //if so print 80 chars and then a newline
-		  
+
 		  // or just check if size of incoming string is 80 or greater, if so print 80 chars and a newline----then check remain left and repeat---if 80 char or great print, else no
 
-  return NULL;
+    return NULL;
 }
-
 
 
 int main()
