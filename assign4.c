@@ -127,21 +127,24 @@ void put_buff_1(char* tmpLine){
 */
 void *get_input(void *args)
 {
+	char* point = NULL
 	//cahnged NUM_ITEMS to MAXLINES
     for (int i = 0; i < MAX_LINES; i++)
     {
     	//////make another loop while pointer not null put buff 1 else return null
       // Get the user input
     	char* line = get_user_input();
-//	  char* point = strstr(line, "STOP");	  
+    	
+    	point = strstr(line, "STOP");
+	  
 //	  (strstr(line, "STOP") == 0)
 		
-//      while(point != NULL) {
-//      	   put_buff_1(line);
-//	  }
+      while(point != NULL) {
+      	   put_buff_1(line);
+	  }
 //      // put it in the first buffer
-    	put_buff_1(line);
-    }
+  //  	put_buff_1(line);
+  //  }
     return NULL;
 }
 
@@ -348,18 +351,8 @@ void *write_output(void *args)
 		
     	line3 = get_buff_3();
     		
-   // 	strcpy(temp, line3);
+   // 	strcat(temp, line3);
     	
-    	
- //   	length = sizeof(temp)/sizeof(temp[0]); 
-    	
-    	
-//    	while (temp[i] != '\0')
-//        {
-//        	printf("%c", temp[i]);
-//        	i++;
-//        //	length = length+1;
-//    	}
 
     	
     //	printf("Number of elements present in given array: %d", length);    
